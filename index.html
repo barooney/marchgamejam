@@ -69,7 +69,6 @@ function fly() {
     animFrameCtr = 0;
   }
   animFrame = (animFrame > 2) ? 0 : animFrame;
-	drawTriangle(ctx);
 	for(castleIndex in castles) {
 		castles[castleIndex].drawMe();
 	}
