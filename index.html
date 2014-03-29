@@ -36,6 +36,16 @@ castleImg.src = 'img/40x40castle.png';
 var backgroundImg = new Image();
 backgroundImg.src = 'img/background.png';
 
+var flagImgs1 = [new Image(), new Image()];
+var flagImgs2 = [new Image(), new Image()];
+var flagImgs3 = [new Image(), new Image()];
+flagImgs1[0].src = 'img/fahne_orange_1.png';
+flagImgs1[1].src = 'img/fahne_orange_2.png';
+flagImgs2[0].src = 'img/fahne_blau_1.png';
+flagImgs2[1].src = 'img/fahne_blau_2.png';
+flagImgs3[0].src = 'img/fahne_gruen_1.png';
+flagImgs3[1].src = 'img/fahne_gruen_2.png';
+
 var animFrame = 0;
 var animFrameCtr = 0;
 var animFrameMax = 3;
@@ -94,11 +104,12 @@ function fly() {
 	for(castleIndex in castles) {
 		castles[castleIndex].drawStreets();
 	}
+  for(castleIndex in castles) {
+    castles[castleIndex].drawFlag();
+    castles[castleIndex].drawMe();
+  }
 	for(castleIndex in castles) {
 		castles[castleIndex].drawDirection();
-	}
-	for(castleIndex in castles) {
-		castles[castleIndex].drawMe();
 	}
 	for(soldierIndex in soldiers) {
 		soldiers[soldierIndex].progress += 0.01;
