@@ -81,6 +81,8 @@ function fly() {
   animFrame = (animFrame > 2) ? 0 : animFrame;
 	for(castleIndex in castles) {
 		castles[castleIndex].drawStreets();
+	}
+	for(castleIndex in castles) {
 		castles[castleIndex].drawDirection();
 	}
 	for(castleIndex in castles) {
@@ -101,7 +103,7 @@ $('canvas').click(function(e) {
 
   for (var c in castles) {
     if (castles[c].isInside(x,y)) {
-      // TODO: add logic to turn target
+      castles[c].nextTarget();
     }
   }
 });
