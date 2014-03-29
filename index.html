@@ -61,20 +61,7 @@ var soldiers = [ new soldier()];
 soldiers[0].startingCastle = castles[1];
 soldiers[0].targetCastle = castles[2];
 
-var xpos = 80;
-var ypos = 32.5;
 
-  function drawTriangle(ctx) {
-   
-  ctx.fillStyle = "#000000";
-  ctx.beginPath();
-  ctx.moveTo(240+xpos, 0+ypos);
-  ctx.lineTo(480+xpos,Math.sqrt(3)/2*480+ypos);
-  ctx.lineTo(0+xpos,Math.sqrt(3)/2*480+ypos);
-  ctx.closePath();
-  ctx.fill();
-    
-}
 fly();
 
 function fly() {
