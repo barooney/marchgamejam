@@ -13,6 +13,14 @@ var soldier = function() {
 
         drawMe: function() {
             ctx.drawImage(soldierImgs1[animFrame], this.getPosX() - 15, this.getPosY() - 15);
+        },
+        
+        updateCastles : function() {
+        	if(this.progress > 0.999) {
+        		this.startingCastle = this.targetCastle;
+        		this.targetCastle = this.startingCastle.neighbours[this.startingCastle.selectedDirection];
+        		this.progress = 0;
+        	}
         }
     };
 };

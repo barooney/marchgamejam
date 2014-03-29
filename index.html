@@ -45,6 +45,7 @@ for(castlePosIndex in castlePosArray) {
 	var curCastle = new castle();
 	curCastle.posX = curPosObj.x;
 	curCastle.posY = curPosObj.y;
+	curCastle.owner = curPosObj.owner;
 	castles.push(curCastle);
 }
 // castles.reverse();
@@ -92,6 +93,7 @@ function fly() {
 		soldiers[soldierIndex].progress += 0.01;
 		soldiers[soldierIndex].progress = Math.min(soldiers[soldierIndex].progress, 1.0);
 		soldiers[soldierIndex].drawMe();
+		soldiers[soldierIndex].updateCastles();
 	}
 }
 
