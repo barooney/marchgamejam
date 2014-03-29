@@ -3,6 +3,7 @@ var soldier = function() {
         startingCastle: null,
         targetCastle: null,
         progress: 0,
+        owner: 1,
 
         getPosX: function() {
             return (1.0 - this.progress) * this.startingCastle.posX + (this.progress) * this.targetCastle.posX;
