@@ -18,10 +18,10 @@ var castle = function() {
 				ctx.fillStyle = "rgba(255,0,0,0.5)";
 				break;
 			case 2:
-				ctx.fillStyle = "rgba(0,255,0,0.5)";
+				ctx.fillStyle = "rgba(0,0,255,0.5)";
 				break;
 			case 3:
-				ctx.fillStyle = "rgba(0,0,255,0.5)";
+				ctx.fillStyle = "rgba(0,255,0,0.5)";
 				break;
 			// draw the castle itself
 			}
