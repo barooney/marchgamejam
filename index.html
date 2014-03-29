@@ -28,6 +28,9 @@ var ctx = c.getContext("2d");
 var castleImg = new Image(); // HTML5 Constructor
 castleImg.src = 'img/40x40castle.png';
 
+var backgroundImg = new Image();
+backgroundImg.src = 'img/background.png';
+
 var animFrame = 0;
 var animFrameCtr = 0;
 var animFrameMax = 3;
@@ -62,24 +65,12 @@ var soldiers = [ new soldier()];
 soldiers[0].startingCastle = castles[1];
 soldiers[0].targetCastle = castles[2];
 
-var xpos = 80;
-var ypos = 32.5;
 
-  function drawTriangle(ctx) {
-   
-  ctx.fillStyle = "#000000";
-  ctx.beginPath();
-  ctx.moveTo(240+xpos, 0+ypos);
-  ctx.lineTo(480+xpos,Math.sqrt(3)/2*480+ypos);
-  ctx.lineTo(0+xpos,Math.sqrt(3)/2*480+ypos);
-  ctx.closePath();
-  ctx.fill();
-    
-}
 fly();
 
 function fly() {
 	ctx.clearRect(0, 0, 640, 480);
+  ctx.drawImage(backgroundImg, 0, 0);
   animFrameCtr++;
   if (animFrameCtr < animFrameMax) {
     
@@ -103,6 +94,17 @@ function fly() {
 }
 
 setInterval(fly, 50);
+
+$('canvas').click(function(e) {
+  x = e.pageX - this.offsetLeft,
+  y = e.pageY - this.offsetTop;
+
+  for (var c in castles) {
+    if (castles[c].isInside(x,y)) {
+      // TODO: add logic to turn target
+    }
+  }
+});
 
 </script>
 
