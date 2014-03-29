@@ -1,6 +1,7 @@
 <!doctype html>
 <script src="helpers.js"></script>
 <script src="castle.js"></script>
+<script src="soldier.js"></script>
 
 <head>
 <title>revolution</title>
@@ -15,14 +16,21 @@
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
-var img1 = new Image(); // HTML5 Constructor
-img1.src = 'img/castle.png';
+var castleImg = new Image(); // HTML5 Constructor
+castleImg.src = 'img/castle.png';
+var soldierImg = new Image(); // HTML5 Constructor
+soldierImg.src = 'img/soldier.png';
 
-var castles = [ castle.clone(), castle.clone(), castle.clone()]
-
+var castles = [new castle(), new castle(), new castle()];
 castles[0].posX = 10;
-castles[1].posX = 100;
-castles[2].posX = 300;
+castles[1].posX = 150;
+castles[1].posY = 150;
+castles[2].posX = 200;
+castles[2].posY = 200;
+
+var soldiers = [ new soldier()];
+soldiers[0].startingCastle = castles[1];
+soldiers[0].targetCastle = castles[2];
 
 var xpos = 80;
 var ypos = 32.5;
@@ -42,11 +50,13 @@ fly();
 
 function fly() {
 	drawTriangle(ctx);
-	 ctx.fillStyle = "#FF0000";
-	drawRectFilled(200, 300, 40, 40); 
-	ctx.drawImage(img1, 200,200);
 	for(castleIndex in castles) {
 		castles[castleIndex].drawMe();
+	}
+	for(soldierIndex in soldiers) {
+		soldiers[soldierIndex].progress += 0.01;
+		soldiers[soldierIndex].progress = Math.min(soldiers[soldierIndex].progress, 1.0);
+		soldiers[soldierIndex].drawMe();
 	}
 }
 
