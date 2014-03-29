@@ -48,7 +48,11 @@ flagImgs3[1].src = 'img/fahne_gruen_2.png';
 
 var animFrame = 0;
 var animFrameCtr = 0;
-var animFrameMax = 3;
+var animFrameMax = 5;
+
+var animFlagFrame = 0;
+var animFlagFrameMax = 5;
+
 var soldierImgs1 = [new Image(), new Image(), new Image];
 var soldierImgs2 = [new Image(), new Image(), new Image];
 var soldierImgs3 = [new Image(), new Image(), new Image];
@@ -99,6 +103,7 @@ function fly() {
   } else {
     animFrame++;
     animFrameCtr = 0;
+    animFlagFrame++;
   }
   animFrame = (animFrame > 2) ? 0 : animFrame;
 	for(castleIndex in castles) {
