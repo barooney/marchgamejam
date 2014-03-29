@@ -30,12 +30,19 @@ var soldier = function() {
 				break;
 			}
 		},
-
+		
 		updateCastles : function() {
 			if (this.progress > 0.999) {
 				this.startingCastle = this.targetCastle;
 				this.targetCastle = this.startingCastle.neighbours[this.startingCastle.selectedDirection];
-				this.progress = 0;
+				this.progress = 0;	
+				
+				// destroy yourself
+				for (i in soldiers) {
+					if (this === soldiers[i] && this.startingCastle.owner != this.owner) {
+						soldiers.splice(i, 1)
+					}
+				}
 				this.startingCastle.owner = this.owner;
 			}
 		}
