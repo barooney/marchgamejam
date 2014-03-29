@@ -11,8 +11,8 @@ var soldier = function() {
             return (1.0 - this.progress) * this.startingCastle.posY + (this.progress) * this.targetCastle.posY;
         },
 
-		drawMe : function() {
-			ctx.drawImage(soldierImgs[animFrame], this.getPosX() - 15, this.getPosY() - 15);
-		}
-	};
+        drawMe: function() {
+            ctx.drawImage(soldierImgs1[animFrame], this.getPosX() - 15, this.getPosY() - 15);
+        }
+    };
 };

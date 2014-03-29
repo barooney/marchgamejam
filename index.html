@@ -26,10 +26,10 @@ castleImg.src = 'img/40x40castle.png';
 var animFrame = 0;
 var animFrameCtr = 0;
 var animFrameMax = 3;
-var soldierImgs = [new Image(), new Image(), new Image];
-soldierImgs[0].src = 'img/knight_1.png';
-soldierImgs[1].src = 'img/knight_2.png';
-soldierImgs[2].src = 'img/knight_3.png';
+var soldierImgs1 = [new Image(), new Image(), new Image];
+soldierImgs1[0].src = 'img/knight_1orange.png';
+soldierImgs1[1].src = 'img/knight_2orange.png';
+soldierImgs1[2].src = 'img/knight_3orange.png';
 
 var castles = [];
 for(castlePosIndex in castlePosArray) {
@@ -39,7 +39,6 @@ for(castlePosIndex in castlePosArray) {
 	curCastle.posY = curPosObj.y;
 	castles.push(curCastle);
 }
-castles[0].neighbours = [castles[1], castles[2]];
 
 var soldiers = [ new soldier()];
 soldiers[0].startingCastle = castles[1];
