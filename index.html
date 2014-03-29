@@ -1,14 +1,15 @@
 <!doctype html>
 <script src="helpers.js"></script>
+<script src="castle.js"></script>
 
 <head>
-  <title>revolution</title>
-    <meta charset="utf-8">
+<title>revolution</title>
+<meta charset="utf-8">
 
-  </head>
+</head>
 
 <canvas id="myCanvas" width="640" height="480"
-style="border:1px solid #000000;">
+	style="border: 1px solid #000000;">
 <script>
 
 var c = document.getElementById("myCanvas");
@@ -16,6 +17,12 @@ var ctx = c.getContext("2d");
 
 var img1 = new Image(); // HTML5 Constructor
 img1.src = 'img/castle.png';
+
+var castles = [ castle.clone(), castle.clone(), castle.clone()]
+
+castles[0].posX = 10;
+castles[1].posX = 100;
+castles[2].posX = 300;
 
 var xpos = 80;
 var ypos = 32.5;
@@ -34,15 +41,18 @@ var ypos = 32.5;
 fly();
 
 function fly() {
-drawTriangle(ctx);
- ctx.fillStyle = "#FF0000";
-drawRectFilled(200, 300, 40, 40); 
-ctx.drawImage(img1, 200,200);
+	drawTriangle(ctx);
+	 ctx.fillStyle = "#FF0000";
+	drawRectFilled(200, 300, 40, 40); 
+	ctx.drawImage(img1, 200,200);
+	for(castleIndex in castles) {
+		castles[castleIndex].drawMe();
+	}
 }
 
 setInterval(fly, 50);
 
 </script> 
 
-</canvas> 
+</canvas>
 
