@@ -1,12 +1,43 @@
 <!doctype html>
-<html lang="en">
+<script src="fighter.js"></script>
+
 <head>
-	<meta charset="UTF-8">
-	<title>March Mini GameJam 2014</title>
-</head>
-<body style="margin: 0; padding: 0; ">
-	<div style="position: absolute; display: table; width: 100%; height: 100%;">
-		<canvas style="display: table-cell; vertical-align: middle; margin: auto; width: 640px; height: 480px; border: 1px solid #f00;" />
-	</div>
-</body>
-</html>
+  <title>revolution</title>
+    <meta charset="utf-8">
+
+  </head>
+
+<canvas id="myCanvas" width="640" height="480"
+style="border:1px solid #000000;">
+<script>
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+var xpos = 80;
+var ypos = 32.5;
+
+  function drawTriangle(ctx) {
+   
+  ctx.fillStyle = "#000000";
+  ctx.beginPath();
+  ctx.moveTo(240+xpos, 0+ypos);
+  ctx.lineTo(480+xpos,Math.sqrt(3)/2*480+ypos);
+  ctx.lineTo(0+xpos,Math.sqrt(3)/2*480+ypos);
+  ctx.closePath();
+  ctx.fill();
+    
+}
+fly();
+
+function fly() {
+drawTriangle(ctx);
+  
+}
+
+setInterval(fly, 50);
+
+</script> 
+
+</canvas> 
+
