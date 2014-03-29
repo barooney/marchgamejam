@@ -38,6 +38,7 @@ for(castlePosIndex in castlePosArray) {
 	curCastle.posY = curPosObj.y;
 	castles.push(curCastle);
 }
+castles[0].neighbours = [castles[1], castles[2]];
 
 var soldiers = [ new soldier()];
 soldiers[0].startingCastle = castles[1];
@@ -69,7 +70,6 @@ function fly() {
     animFrameCtr = 0;
   }
   animFrame = (animFrame > 2) ? 0 : animFrame;
-	drawTriangle(ctx);
 	for(castleIndex in castles) {
 		castles[castleIndex].drawMe();
 	}
