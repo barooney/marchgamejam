@@ -18,6 +18,7 @@
 
 
 
+
 </div>
 <script>
 
@@ -89,6 +90,7 @@ function fly() {
   animFrame = (animFrame > 2) ? 0 : animFrame;
 	for(castleIndex in castles) {
 		castles[castleIndex].drawStreets();
+		castles[castleIndex].drawDirection();
 	}
 	for(castleIndex in castles) {
 		castles[castleIndex].drawMe();

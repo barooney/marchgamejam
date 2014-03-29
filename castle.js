@@ -3,6 +3,7 @@ var castle = function() {
 		posX : 50,
 		posY : 50,
 		neighbours : [],
+		selectedDirection : 0,
 		owner : 1,
 
 		drawMe : function() {
@@ -40,6 +41,23 @@ var castle = function() {
 				ctx.lineTo(curNeighbours.posX, curNeighbours.posY);
 				ctx.stroke();
 			}
+		},
+
+		drawDirection : function() {
+			ctx.beginPath();
+			ctx.lineWidth = 0.1;
+			ctx.fillStyle = "rgba(0,0,0,1)";
+			var targetCastle = this.neighbours[this.selectedDirection];
+			var distance = 0.35;
+			directionMarkerPosX = (1.0 - distance) * this.posX + (distance)
+					* targetCastle.posX;
+			directionMarkerPosY = (1.0 - distance) * this.posY + (distance)
+					* targetCastle.posY;
+			ctx.arc(directionMarkerPosX, directionMarkerPosY, 4, 0,
+					Math.PI * 2, false);
+
+			ctx.fill();
+			ctx.stroke();
 		},
 
 		isInside : function(x, y) {
