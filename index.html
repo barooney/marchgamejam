@@ -8,10 +8,11 @@
 <title>revolution</title>
 <meta charset="utf-8">
 
-  </head>
+</head>
 <div style="display: table; width: 100%; height: 100%;">
-<canvas id="myCanvas" width="640" height="480"
-style="border:1px solid #000000; display: table-cell; margin: auto;">
+	<canvas id="myCanvas" width="640" height="480"
+		style="border: 1px solid #000000; display: table-cell; margin: auto;">
+
 </div>
 <script>
 
@@ -19,9 +20,15 @@ var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
 var castleImg = new Image(); // HTML5 Constructor
-castleImg.src = 'img/castle.png';
-var soldierImg = new Image(); // HTML5 Constructor
-soldierImg.src = 'img/soldier.png';
+castleImg.src = 'img/40x40castle.png';
+
+var animFrame = 0;
+var animFrameCtr = 0;
+var animFrameMax = 3;
+var soldierImgs = [new Image(), new Image(), new Image];
+soldierImgs[0].src = 'img/knight_1.png';
+soldierImgs[1].src = 'img/knight_2.png';
+soldierImgs[2].src = 'img/knight_3.png';
 
 var castles = [];
 for(castlePosIndex in castlePosArray) {
@@ -54,6 +61,14 @@ fly();
 
 function fly() {
 	ctx.clearRect(0, 0, 640, 480);
+  animFrameCtr++;
+  if (animFrameCtr < animFrameMax) {
+    
+  } else {
+    animFrame++;
+    animFrameCtr = 0;
+  }
+  animFrame = (animFrame > 2) ? 0 : animFrame;
 	drawTriangle(ctx);
 	for(castleIndex in castles) {
 		castles[castleIndex].drawMe();
@@ -67,7 +82,7 @@ function fly() {
 
 setInterval(fly, 50);
 
-</script> 
+</script>
 
 </canvas>
 
