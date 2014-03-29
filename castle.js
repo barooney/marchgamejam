@@ -3,26 +3,30 @@ var castle = function() {
 		posX : 50,
 		posY : 50,
 		neighbours : [],
-		owner : 1,
+		owner : 2,
 
 		drawMe : function() {
+			ctx.beginPath();
+			ctx.lineWidth = 0.1;
+			
 			switch (this.owner) {
 			case 1:
-				ctx.beginPath();
-				ctx.lineWidth = 0.1;
 				ctx.fillStyle = "rgba(255,0,0,0.5)";
 				ctx.arc(this.posX, this.posY, 28, 00, Math.PI * 2, false);
 				ctx.fill();
-				ctx.stroke();
 				break;
 			case 2:
-				ctx.fillStyle = "#0F0";
-				ctx.fillRect(this.posX - 20, this.posY - 20, 40, 40);
+				ctx.fillStyle = "rgba(0,255,0,0.5)";
+				ctx.arc(this.posX, this.posY, 28, 00, Math.PI * 2, false);
+				ctx.fill();
 				break;
 			case 3:
-				ctx.fillStyle = "#00F";
-				ctx.fillRect(this.posX - 20, this.posY - 20, 40, 40);
+				ctx.fillStyle = "rgba(0,0,255,0.5)";
+				ctx.arc(this.posX, this.posY, 28, 00, Math.PI * 2, false);
+				ctx.fill();
 				break;
+
+			
 			}
 
 			// draw the castle itself
