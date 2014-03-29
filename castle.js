@@ -63,13 +63,13 @@ var castle = function() {
                 var img;
                 switch (this.owner) {
                     case 1:
-                        img = flagImgs1[animFrameCtr % 2];
+                        img = flagImgs1[animFlagFrame % 2];
                         break;
                     case 2:
-                        img = flagImgs2[animFrameCtr % 2];
+                        img = flagImgs2[animFlagFrame % 2];
                         break;
                     case 3:
-                        img = flagImgs3[animFrameCtr % 2];
+                        img = flagImgs3[animFlagFrame % 2];
                         break;
                 }
                 ctx.drawImage(img, this.posX - 20, this.posY - 35);
