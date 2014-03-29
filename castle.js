@@ -5,6 +5,11 @@ var castle = function() {
 		neighbours : [],
 
 		drawMe : function() {
+			// draw the castle itself
+			ctx.drawImage(castleImg, this.posX - 20, this.posY - 20);
+		},
+	
+		drawStreets : function() {
 			// draw the way to the neighbors
 			ctx.strokeStyle = "#999";
 			ctx.lineWidth=10;
@@ -15,9 +20,6 @@ var castle = function() {
 				ctx.lineTo(curNeighbours.posX, curNeighbours.posY);
 				ctx.stroke();
 			}
-			
-			// draw the castle itself
-			ctx.drawImage(castleImg, this.posX - 20, this.posY - 20);
 		}
 	};
 };

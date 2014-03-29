@@ -14,6 +14,10 @@
 	<canvas id="myCanvas" width="640" height="480"
 		style="border: 1px solid #000000; display: table-cell; margin: auto;">
 
+
+
+
+
 </div>
 <script>
 
@@ -37,7 +41,26 @@ for(castlePosIndex in castlePosArray) {
 	var curCastle = new castle();
 	curCastle.posX = curPosObj.x;
 	curCastle.posY = curPosObj.y;
+	
 	castles.push(curCastle);
+}
+// castles.reverse();
+
+// connect to neighbours
+	console.log(castles);
+	console.log(castlePosArray);
+for(castleIndex in castles) {
+	console.log(castleIndex);
+	console.log('castlePosArray[castleIndex]', castlePosArray[castleIndex]);
+	var curCastleNeighbourIndizes =  castlePosArray[castleIndex].neighbours;
+	console.log(curCastleNeighbourIndizes);
+	var curCastle =  castles[castleIndex];
+	
+	
+	for(curCastleNeighbourIndizesIndex in curCastleNeighbourIndizes) {
+		var curNeighbourIndex = curCastleNeighbourIndizes[curCastleNeighbourIndizesIndex];
+		curCastle.neighbours.push(castles[curNeighbourIndex]);
+	}
 }
 
 var soldiers = [ new soldier()];
@@ -70,6 +93,9 @@ function fly() {
     animFrameCtr = 0;
   }
   animFrame = (animFrame > 2) ? 0 : animFrame;
+	for(castleIndex in castles) {
+		castles[castleIndex].drawStreets();
+	}
 	for(castleIndex in castles) {
 		castles[castleIndex].drawMe();
 	}
