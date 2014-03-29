@@ -14,7 +14,7 @@ var soldier = function() {
 		},
 
 		drawMe : function() {
-			ctx.drawImage(soldierImg, this.getPosX(), this.getPosY());
+			ctx.drawImage(soldierImg, this.getPosX() - 15, this.getPosY() - 15);
 		}
 	};
 }

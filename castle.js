@@ -4,7 +4,7 @@ var castle = function() {
 		posY : 50,
 
 		drawMe : function() {
-			ctx.drawImage(castleImg, this.posX, this.posY);
+			ctx.drawImage(castleImg, this.posX - 20, this.posY - 20);
 		}
 	};
 }

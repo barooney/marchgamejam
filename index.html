@@ -23,12 +23,14 @@ castleImg.src = 'img/castle.png';
 var soldierImg = new Image(); // HTML5 Constructor
 soldierImg.src = 'img/soldier.png';
 
-var castles = [new castle(), new castle(), new castle()];
-castles[0].posX = 10;
-castles[1].posX = 150;
-castles[1].posY = 150;
-castles[2].posX = 200;
-castles[2].posY = 200;
+var castles = [];
+for(castlePosIndex in castlePosArray) {
+	var curPosObj = castlePosArray[castlePosIndex];
+	var curCastle = new castle();
+	curCastle.posX = curPosObj.x;
+	curCastle.posY = curPosObj.y;
+	castles.push(curCastle);
+}
 
 var soldiers = [ new soldier()];
 soldiers[0].startingCastle = castles[1];
@@ -51,6 +53,7 @@ var ypos = 32.5;
 fly();
 
 function fly() {
+	ctx.clearRect(0, 0, 640, 480);
 	drawTriangle(ctx);
 	for(castleIndex in castles) {
 		castles[castleIndex].drawMe();
