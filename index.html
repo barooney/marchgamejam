@@ -19,9 +19,15 @@ var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
 var castleImg = new Image(); // HTML5 Constructor
-castleImg.src = 'img/castle.png';
-var soldierImg = new Image(); // HTML5 Constructor
-soldierImg.src = 'img/soldier.png';
+castleImg.src = 'img/40x40castle.png';
+
+var animFrame = 0;
+var animFrameCtr = 0;
+var animFrameMax = 3;
+var soldierImgs = [new Image(), new Image(), new Image];
+soldierImgs[0].src = 'img/knight_1.png';
+soldierImgs[1].src = 'img/knight_2.png';
+soldierImgs[2].src = 'img/knight_3.png';
 
 var castles = [new castle(), new castle(), new castle()];
 castles[0].posX = 10;
@@ -51,6 +57,14 @@ var ypos = 32.5;
 fly();
 
 function fly() {
+  animFrameCtr++;
+  if (animFrameCtr < animFrameMax) {
+    
+  } else {
+    animFrame++;
+    animFrameCtr = 0;
+  }
+  animFrame = (animFrame > 2) ? 0 : animFrame;
 	drawTriangle(ctx);
 	for(castleIndex in castles) {
 		castles[castleIndex].drawMe();
