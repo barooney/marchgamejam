@@ -19,8 +19,13 @@
 
 
 
+
 </div>
 <script>
+
+var framesToNextSpawn1 = 20;
+var framesToNextSpawn2 = 20;
+var framesToNextSpawn3 = 20;
 
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
@@ -80,9 +85,7 @@ for(castleIndex in castles) {
 	}
 }
 
-var soldiers = [ new soldier()];
-soldiers[0].startingCastle = castles[1];
-soldiers[0].targetCastle = castles[2];
+var soldiers = [];
 
 
 fly();
@@ -113,6 +116,46 @@ function fly() {
 		soldiers[soldierIndex].progress = Math.min(soldiers[soldierIndex].progress, 1.0);
 		soldiers[soldierIndex].drawMe();
 		soldiers[soldierIndex].updateCastles();
+	}
+	
+	castlesPlayer1 = 1;
+	castlesPlayer2 = 1;
+	castlesPlayer3 = 1;
+	// spawn new soldiers regularly
+	framesToNextSpawn1--;
+	if (framesToNextSpawn1 <= 0 && castles[0].owner === 1) {
+		
+		framesToNextSpawn1 = 100 / castlesPlayer1;
+		var newSoldier = new soldier();
+		newSoldier.startingCastle = castles[0]; // p1=0, p2=15, p3=20
+		newSoldier.targetCastle = castles[0];
+		newSoldier.progress = 1;
+		newSoldier.owner = 1;
+		soldiers.push(newSoldier);
+	}
+	
+	// spawn new soldiers regularly
+	framesToNextSpawn2--;
+	if (framesToNextSpawn2 <= 0  && castles[15].owner === 2) {
+		framesToNextSpawn2 = 100 / castlesPlayer2;
+		var newSoldier = new soldier();
+		newSoldier.startingCastle = castles[15]; // p1=0, p2=15, p3=20
+		newSoldier.targetCastle = castles[15];
+		newSoldier.progress = 1;
+		newSoldier.owner = 2;
+		soldiers.push(newSoldier);
+	}
+	
+	// spawn new soldiers regularly
+	framesToNextSpawn3--;
+	if (framesToNextSpawn3 <= 0  && castles[20].owner === 3) {
+		framesToNextSpawn3 = 100 / castlesPlayer3;
+		var newSoldier = new soldier();
+		newSoldier.startingCastle = castles[20]; // p1=0, p2=15, p3=20
+		newSoldier.targetCastle = castles[20];
+		newSoldier.progress = 1;
+		newSoldier.owner = 3;
+		soldiers.push(newSoldier);
 	}
 }
 
