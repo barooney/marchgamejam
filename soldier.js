@@ -69,7 +69,6 @@ var soldier = function() {
 				    }
 			    }
 			    if (this.startingCastle.owner !== this.owner) {
-				    console.log(mainBases.indexOf(this.targetCastle));
 				    if (mainBases.indexOf(this.startingCastle) > 0) {
 					    sounds_fanfare[0].play();
 				    }
@@ -95,6 +94,10 @@ var soldier = function() {
 		    }
 		    
 		    // handle the collision
+		    var fightAnimation = new knightFightAnimation();
+		    fightAnimation.x = this.getPosX() - 20;
+		    fightAnimation.y = this.getPosY() - 35;
+		    animations.push(fightAnimation);
 		    if (Math.random() < 0.5) {
 		    	this.suicide();
 		    } else {
