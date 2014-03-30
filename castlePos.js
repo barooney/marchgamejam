@@ -1,6 +1,6 @@
 var xStartPos = 320;
 var xDelta = 40;
-var yStartPos = 40;
+var yStartPos = 50;
 var yDelta = 70;
 var castlePosArray = [
 // Top

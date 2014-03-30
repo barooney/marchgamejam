@@ -15,18 +15,19 @@ var soldier = function() {
 	    },
 
 	    drawMe : function() {
+	    	var yOffset = -30;
 		    switch (this.owner) {
 		    case 1:
 			    ctx.drawImage(soldierImgs1[animFrame], this.getPosX() - 15,
-			            this.getPosY() - 15);
+			            this.getPosY() + yOffset);
 			    break;
 		    case 2:
 			    ctx.drawImage(soldierImgs2[animFrame], this.getPosX() - 15,
-			            this.getPosY() - 15);
+			            this.getPosY() + yOffset);
 			    break;
 		    case 3:
 			    ctx.drawImage(soldierImgs3[animFrame], this.getPosX() - 15,
-			            this.getPosY() - 15);
+			            this.getPosY() + yOffset);
 			    break;
 		    }
 	    },
