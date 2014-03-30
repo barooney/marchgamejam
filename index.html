@@ -22,8 +22,11 @@ var framesToNextSpawn3 = 20;
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
-var castleImg = new Image(); // HTML5 Constructor
+var castleImg = new Image();
 castleImg.src = 'img/40x40castle.png';
+
+var startscreenImg = new Image();
+startscreenImg.src = 'img/startscreen.png';
 
 var backgroundImg = new Image();
 backgroundImg.src = 'img/background.png';
@@ -84,10 +87,14 @@ for(castleIndex in castles) {
 
 var soldiers = [];
 
+var showStart = 1;
 
 fly();
 
 function fly() {
+  if (showStart) {
+  	ctx.drawImage(startscreenImg, 0, 0);
+  } else {
   ctx.clearRect(0, 0, 640, 480);
   ctx.drawImage(backgroundImg, 0, 0);
   animFrameCtr++;
@@ -160,19 +167,25 @@ function fly() {
 		newSoldier.owner = 3;
 		soldiers.push(newSoldier);
 	}
+  }
 }
 
 setInterval(fly, 50);
 
 $('canvas').click(function(e) {
-  x = e.pageX - this.offsetLeft,
-  y = e.pageY - this.offsetTop;
+	if (showStart) {
+		showStart = 0;
+	} else {
 
-  for (var c in castles) {
-    if (castles[c].isInside(x,y)) {
-      castles[c].nextTarget();
-    }
-  }
+	  x = e.pageX - this.offsetLeft,
+	  y = e.pageY - this.offsetTop;
+
+	  for (var c in castles) {
+	    if (castles[c].isInside(x,y)) {
+	      castles[c].nextTarget();
+	    }
+	  }
+	}
 });
 
 </script>
