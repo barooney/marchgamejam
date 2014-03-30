@@ -24,7 +24,7 @@ var castle = function() {
                     ctx.fillStyle = "rgba(0,255,0,0.5)";
                     break;
                     // draw the castle itself
-            };
+            }
             // ctx.arc(this.posX, this.posY, 28, 0, Math.PI * 2, false);
             // ctx.fill();
             ctx.drawImage(castleImg, this.posX - 20, this.posY - 20);
@@ -51,7 +51,7 @@ var castle = function() {
             // draw the way to the neighbors
             ctx.strokeStyle = "#999";
             ctx.lineWidth = 10;
-            for (neighboursIndex in this.neighbours) {
+            for (var neighboursIndex in this.neighbours) {
                 var curNeighbours = this.neighbours[neighboursIndex];
                 ctx.beginPath();
                 ctx.moveTo(this.posX, this.posY);
@@ -65,13 +65,13 @@ var castle = function() {
                 var img;
                 switch (this.owner) {
                     case 1:
-                        img = flagImgs1[animFrameCtr % 2];
+                        img = flagImgs1[animFlagFrameCtr];
                         break;
                     case 2:
-                        img = flagImgs2[animFrameCtr % 2];
+                        img = flagImgs2[animFlagFrameCtr];
                         break;
                     case 3:
-                        img = flagImgs3[animFrameCtr % 2];
+                        img = flagImgs3[animFlagFrameCtr];
                         break;
                 }
                 ctx.drawImage(img, this.posX - 20, this.posY - 35);
