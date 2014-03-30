@@ -1,5 +1,5 @@
 var castle = function() {
-	return {
+	aCastle = {
 	    posX : 50,
 	    posY : 50,
 	    neighbours : [],
@@ -104,4 +104,5 @@ var castle = function() {
 		            % this.neighbours.length;
 	    }
 	};
+	return aCastle;
 };

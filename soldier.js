@@ -19,7 +19,8 @@ var soldier = function() {
 
 		    // mirror soldiers if necessary
 		    var mirroredMultiplier = 1;
-		    if (this.targetCastle !== undefined && this.startingCastle !== undefined
+		    if (this.targetCastle !== undefined
+		            && this.startingCastle !== undefined
 		            && this.targetCastle.posX < this.startingCastle.posX) {
 			    ctx.scale(-1, 1);
 			    mirroredMultiplier = -1;
@@ -57,12 +58,15 @@ var soldier = function() {
 				    if (this === soldiers[i]
 				            && this.startingCastle.owner != this.owner) {
 					    soldiers.splice(i, 1)
+					    var rndNeighbourIndex = Math.floor(Math.random()
+					            * this.startingCastle.neighbours.length);
+					    this.startingCastle.selectedDirection = rndNeighbourIndex;
 				    }
 			    }
 			    this.startingCastle.owner = this.owner;
 		    }
 	    }
 	};
-	
+
 	return aSoldier;
 };
