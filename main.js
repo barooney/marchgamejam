@@ -107,6 +107,16 @@ function fly() {
             soldiers.push(newSoldier);
         }
 
+        // show number of castles
+        ctx.drawImage(flagImgs1[0], 530, 30);
+        ctx.drawImage(flagImgs2[0], 530, 60);
+        ctx.drawImage(flagImgs3[0], 530, 90);
+        ctx.font = "20px Palatino Linotype";
+        ctx.fillStyle = "#fff";
+        ctx.fillText(castlesPlayer1, 580, 50);
+        ctx.fillText(castlesPlayer2, 580, 80);
+        ctx.fillText(castlesPlayer3, 580, 110);
+
         var winner = getWinner();
 
         if (winner === 1) {
