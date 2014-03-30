@@ -1,3 +1,57 @@
+var KI_FRAME_INTERVAL = 1000 / FRAME_DELAY;
+var kiMoveCountDown = KI_FRAME_INTERVAL;
+
+function doAIMoves() {
+	kiMoveCountDown--;
+	if (kiMoveCountDown <= 0) {
+		kiMoveCountDown = KI_FRAME_INTERVAL;
+
+		// collect castles of player 2 in an array:
+		var castlesPlayer2 = [];
+		for ( var curCastleIndex in castles) {
+			var curCastle = castles[curCastleIndex];
+			if (curCastle.owner === 2) {
+				castlesPlayer2.push(curCastle);
+			}
+		}
+
+		if (castlesPlayer2.length === 0) {
+			return;
+		}
+		
+		// select one random castle from the array
+		castleToChangeIndex = Math.floor(Math.random() * castlesPlayer2.length);
+		castleToChange = castlesPlayer2[castleToChangeIndex];
+
+		// select a random new direction for the selected castle:
+		var rndDirectionIndex = Math.floor(Math.random()
+		        * castleToChange.neighbours.length);
+		castleToChange.selectedDirection = rndDirectionIndex;
+		
+		// collect castles of player 3 in an array:
+		var castlesPlayer3 = [];
+		for ( var curCastleIndex in castles) {
+			var curCastle = castles[curCastleIndex];
+			if (curCastle.owner === 3) {
+				castlesPlayer3.push(curCastle);
+			}
+		}
+
+		if (castlesPlayer3.length === 0) {
+			return;
+		}
+		
+		// select one random castle from the array
+		castleToChangeIndex = Math.floor(Math.random() * castlesPlayer3.length);
+		castleToChange = castlesPlayer3[castleToChangeIndex];
+
+		// select a random new direction for the selected castle:
+		var rndDirectionIndex = Math.floor(Math.random()
+		        * castleToChange.neighbours.length);
+		castleToChange.selectedDirection = rndDirectionIndex;
+	}
+}
+
 function getWinner() {
 	// for each player...
 	for (var curPlayer = 1; curPlayer <= 3; curPlayer++) {
@@ -34,6 +88,8 @@ function fly() {
 	if (shownScreen === SCREEN_START) {
 		ctx.drawImage(startscreenImg, 0, 0);
 	} else if (shownScreen === SCREEN_BATTLE) {
+		doAIMoves();
+		
 		ctx.clearRect(0, 0, 640, 480);
 		ctx.drawImage(backgroundImg, 0, 0);
 		animFrameCtr++;
@@ -120,15 +176,15 @@ function fly() {
 			soldiers.push(newSoldier);
 		}
 
-        // show number of castles
-        ctx.drawImage(flagImgs1[0], 530, 30);
-        ctx.drawImage(flagImgs2[0], 530, 60);
-        ctx.drawImage(flagImgs3[0], 530, 90);
-        ctx.font = "20px Palatino Linotype";
-        ctx.fillStyle = "#fff";
-        ctx.fillText(castlesPlayer1, 580, 50);
-        ctx.fillText(castlesPlayer2, 580, 80);
-        ctx.fillText(castlesPlayer3, 580, 110);
+		// show number of castles
+		ctx.drawImage(flagImgs1[0], 530, 30);
+		ctx.drawImage(flagImgs2[0], 530, 60);
+		ctx.drawImage(flagImgs3[0], 530, 90);
+		ctx.font = "20px Palatino Linotype";
+		ctx.fillStyle = "#fff";
+		ctx.fillText(castlesPlayer1, 580, 50);
+		ctx.fillText(castlesPlayer2, 580, 80);
+		ctx.fillText(castlesPlayer3, 580, 110);
 
 		var winner = getWinner();
 
