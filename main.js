@@ -86,9 +86,25 @@ function getWinner() {
 	return 0;
 }
 
+function startBattle() {
+	shownScreen = SCREEN_BATTLE;
+	buttons = [];
+	init();
+}
+
 function fly() {
 	if (shownScreen === SCREEN_START) {
 		ctx.drawImage(startscreenImg, 0, 0);
+
+		if (DEBUG_ONE_TIME_TEST_FLAG) {
+			DEBUG_ONE_TIME_TEST_FLAG = false;
+			// do something once here
+		}
+
+		for (buttonIndex in buttons) {
+			buttons[buttonIndex].draw();
+		}
+
 	} else if (shownScreen === SCREEN_BATTLE) {
 		doAIMoves();
 
@@ -121,22 +137,16 @@ function fly() {
 		for (soldierIndex in soldiers) {
 			var curSoldier = soldiers[soldierIndex];
 			curSoldier.progress += curSoldier.velocity;
-			curSoldier.progress = Math.min(
-			curSoldier.progress, 1.0);
-			
+			curSoldier.progress = Math.min(curSoldier.progress, 1.0);
+
 			// check for collisions with enemy soldiers:
 			for (otherSoldierIndex in soldiers) {
 				var otherSoldier = soldiers[otherSoldierIndex];
 				curSoldier.checkCollisions(otherSoldier);
 			}
-			
+
 			curSoldier.drawMe();
 			curSoldier.updateCastles();
-		}
-
-		if (DEBUG_ONE_TIME_TEST_FLAG) {
-			DEBUG_ONE_TIME_TEST_FLAG = false;
-			// do something once here
 		}
 
 		// animate the animations
@@ -214,6 +224,8 @@ function fly() {
 		} else if (winner > 1) {
 			shownScreen = SCREEN_LOSE;
 		}
+	} else if (shownScreen === SCREEN_HELP) {
+		ctx.drawImage(helpScreenImg, 0, 0);
 	} else if (shownScreen === SCREEN_WIN) {
 		ctx.drawImage(winScreenImg, 0, 0);
 	} else if (shownScreen === SCREEN_LOSE) {
@@ -223,24 +235,50 @@ function fly() {
 }
 
 $('canvas').click(function(e) {
+	var x = e.pageX - this.offsetLeft;
+	var y = e.pageY - this.offsetTop;
+
 	if (shownScreen === SCREEN_START) {
-		shownScreen = SCREEN_BATTLE;
-		init();
+	} else if (shownScreen === SCREEN_HELP) {
+		showStartScreen();
 	} else if (shownScreen === SCREEN_WIN) {
-		shownScreen = SCREEN_START;
+		showStartScreen();
 	} else if (shownScreen === SCREEN_LOSE) {
-		shownScreen = SCREEN_START;
+		showStartScreen();
 	} else if (shownScreen === SCREEN_BATTLE) {
-
-		var x = e.pageX - this.offsetLeft;
-		var y = e.pageY - this.offsetTop;
-
 		for ( var c in castles) {
 			if (castles[c].isInside(x, y) && castles[c].owner === 1) {
 				castles[c].nextTarget();
 			}
 		}
 	}
+
+	for (var curBtnIndex = 0; curBtnIndex < buttons.length; curBtnIndex++) {
+		buttons[curBtnIndex].handleClickAt(x, y);
+	}
 });
+
+function showHelpScreen() {
+	shownScreen = SCREEN_HELP;
+	buttons = [];
+}
+
+function showStartScreen() {
+	shownScreen = SCREEN_START;
+	buttons = [];
+
+	var startBtn = new button();
+	startBtn.title = "Start Battle"
+	startBtn.callback = startBattle
+	buttons.push(startBtn);
+
+	var hlpBtn = new button();
+	hlpBtn.title = "Help"
+	hlpBtn.callback = showHelpScreen;
+	hlpBtn.y += 50;
+	buttons.push(hlpBtn);
+}
+
+showStartScreen();
 
 fly();

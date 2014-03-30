@@ -75,13 +75,16 @@ var soldier = function() {
                 return;
             }
 
-            // is other soldier inside collision radius? return if not.
-            var collisionRadius = 2;
-            var distance = Math.sqrt((this.getPosX() - otherSoldier.getPosX()) * (this.getPosX() - otherSoldier.getPosX()) + (this.getPosY() - otherSoldier.getPosY()) * (this.getPosY() - otherSoldier.getPosY()));
-            if (distance > collisionRadius) {
-                return;
-            }
-
+		    // is other soldier inside collision radius? return if not.
+		    var collisionRadius = 2;
+		    var distance = Math.sqrt((this.getPosX() - otherSoldier.getPosX())
+		            * (this.getPosX() - otherSoldier.getPosX())
+		            + (this.getPosY() - otherSoldier.getPosY())
+		            * (this.getPosY() - otherSoldier.getPosY()));
+		    if (distance > collisionRadius) {
+		    	return;
+		    }
+		    
             // handle the collision
             var fightAnimation = new knightFightAnimation();
             fightAnimation.x = this.getPosX() - 20;
@@ -93,8 +96,8 @@ var soldier = function() {
             } else {
                 otherSoldier.suicide();
             }
-        },
-
+	    },
+	    
         suicide: function() {
             // destroy yourself
             for (i in soldiers) {
