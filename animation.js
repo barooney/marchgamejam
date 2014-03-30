@@ -41,6 +41,17 @@ var castleFightAnimation = function() {
 	resultAnimation.loopImages.push(castleFightLoop01Img);
 	resultAnimation.loopImages.push(castleFightLoop02Img);
 	resultAnimation.loopImages.push(castleFightLoop03Img);
-	resultAnimation.loopAnimationFrames = 50;
+	resultAnimation.loopAnimationFrames = 20;
+	return resultAnimation;
+};
+
+var knightFightAnimation = function() {
+	resultAnimation = new animation();
+	resultAnimation.x = 20;
+	resultAnimation.y = 20;
+	resultAnimation.loopImages.push(knightFightLoop01Img);
+	resultAnimation.loopImages.push(knightFightLoop02Img);
+	resultAnimation.loopImages.push(knightFightLoop03Img);
+	resultAnimation.loopAnimationFrames = 10;
 	return resultAnimation;
 };

@@ -1,6 +1,7 @@
 var FRAME_DELAY = 50;
 var SCREEN_START = 'start';
 var SCREEN_BATTLE = 'battle';
+var SCREEN_HELP = 'help';
 var SCREEN_WIN = 'win';
 var SCREEN_LOSE = 'lose';
 
@@ -8,6 +9,7 @@ var SCREEN_LOSE = 'lose';
 var shownScreen = SCREEN_START;
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
+var buttons = [];
 
 // global battlefield variables
 var mainBases;
@@ -28,8 +30,16 @@ var castleFightLoop02Img = new Image();
 castleFightLoop02Img.src = 'img/castle_fight_loop_02.png';
 var castleFightLoop03Img = new Image();
 castleFightLoop03Img.src = 'img/castle_fight_loop_03.png';
+var knightFightLoop01Img = new Image();
+knightFightLoop01Img.src = 'img/knight_fight_loop_01.png';
+var knightFightLoop02Img = new Image();
+knightFightLoop02Img.src = 'img/knight_fight_loop_02.png';
+var knightFightLoop03Img = new Image();
+knightFightLoop03Img.src = 'img/knight_fight_loop_03.png';
 var startscreenImg = new Image();
 startscreenImg.src = 'img/startscreen.png';
+var helpScreenImg = new Image();
+helpScreenImg.src = 'img/helpscreen.png';
 var winScreenImg = new Image();
 winScreenImg.src = 'img/winscreen.png';
 var loseScreenImg = new Image();
@@ -77,11 +87,13 @@ var sounds_fanfare = [];
 sounds_fanfare.push(new buzz.sound('snd/Fanfare.mp3'));
 
 function init() {
-    sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
+	var buttons;
 
-    framesToNextSpawn1 = 20;
-    framesToNextSpawn2 = 20;
-    framesToNextSpawn3 = 20;
+	sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
+
+	framesToNextSpawn1 = 20;
+	framesToNextSpawn2 = 20;
+	framesToNextSpawn3 = 20;
 
 	mainBases = [ null, null, null ];
 
