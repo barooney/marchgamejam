@@ -92,7 +92,7 @@ function fly() {
 			animFrameCtr = 0;
 			animFlagFrame++;
 		}
-		animFrame %= 2;
+		animFrame %= 3;
 		if (animFlagFrame === animFlagFrameMax) {
 			// animFlagFrameCtr != animFlagFrameCtr;
 			animFlagFrameCtr = (!animFlagFrameCtr) ? 1 : 0;
