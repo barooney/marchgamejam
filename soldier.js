@@ -50,9 +50,15 @@ var soldier = function() {
                 // destroy yourself
                 for (i in soldiers) {
                     if (this === soldiers[i] && this.startingCastle.owner != this.owner) {
-                        soldiers.splice(i, 1)
+                        soldiers.splice(i, 1);
                         var rndNeighbourIndex = Math.floor(Math.random() * this.startingCastle.neighbours.length);
                         this.startingCastle.selectedDirection = rndNeighbourIndex;
+                    }
+                }
+                if (this.startingCastle.owner !== this.owner) {
+                    console.log(mainBases.indexOf(this.targetCastle));
+                    if (mainBases.indexOf(this.startingCastle) > 0) {
+                        sounds_fanfare[0].play();
                     }
                 }
                 this.startingCastle.owner = this.owner;
