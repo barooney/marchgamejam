@@ -6,7 +6,6 @@ var SCREEN_LOSE = 'lose';
 
 // global variables
 var shownScreen = SCREEN_START;
-
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
