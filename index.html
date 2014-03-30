@@ -1,7 +1,6 @@
 <!doctype html>
 <script src="lib/jquery-1.11.0.min.js"></script>
 <script src="castlePos.js"></script>
-<script src="helpers.js"></script>
 <script src="castle.js"></script>
 <script src="soldier.js"></script>
 
@@ -51,7 +50,8 @@ var animFrameCtr = 0;
 var animFrameMax = 5;
 
 var animFlagFrame = 0;
-var animFlagFrameMax = 5;
+var animFlagFrameMax = 1;
+var animFlagFrameCtr = 0;
 
 var soldierImgs1 = [new Image(), new Image(), new Image];
 var soldierImgs2 = [new Image(), new Image(), new Image];
@@ -95,7 +95,7 @@ var soldiers = [];
 fly();
 
 function fly() {
-	ctx.clearRect(0, 0, 640, 480);
+  ctx.clearRect(0, 0, 640, 480);
   ctx.drawImage(backgroundImg, 0, 0);
   animFrameCtr++;
   if (animFrameCtr < animFrameMax) {
@@ -105,10 +105,15 @@ function fly() {
     animFrameCtr = 0;
     animFlagFrame++;
   }
-  animFrame = (animFrame > 2) ? 0 : animFrame;
-	for(castleIndex in castles) {
-		castles[castleIndex].drawStreets();
-	}
+  animFrame %= 2;
+  if (animFlagFrame === animFlagFrameMax) {
+    //animFlagFrameCtr != animFlagFrameCtr;
+    animFlagFrameCtr = (!animFlagFrameCtr) ? 1 : 0;
+    animFlagFrame = 0;
+  }
+  for(castleIndex in castles) {
+    castles[castleIndex].drawStreets();
+  }
   for(castleIndex in castles) {
     castles[castleIndex].drawFlag();
     castles[castleIndex].drawMe();
