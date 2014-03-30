@@ -1,4 +1,10 @@
-var FRAME_DELAY = 50; 
+var FRAME_DELAY = 1; 
+var SCREEN_START = 'start';
+var SCREEN_BATTLE = 'battle';
+var SCREEN_WIN = 'win';
+var SCREEN_LOSE = 'lose';
+
+var shownScreen = SCREEN_START; 
 
 var framesToNextSpawn1 = 20;
 var framesToNextSpawn2 = 20;
@@ -12,6 +18,12 @@ castleImg.src = 'img/40x40castle.png';
 
 var startscreenImg = new Image();
 startscreenImg.src = 'img/startscreen.png';
+
+var winScreenImg = new Image();
+winScreenImg.src = 'img/winscreen.png';
+
+var loseScreenImg = new Image();
+loseScreenImg.src = 'img/losescreen.png';
 
 var way1Img = new Image();
 way1Img.src = 'img/way_1.png';
@@ -52,6 +64,8 @@ soldierImgs3[0].src = 'img/knight_1gruen.png';
 soldierImgs3[1].src = 'img/knight_2gruen.png';
 soldierImgs3[2].src = 'img/knight_3gruen.png';
 
+var mainBases = [null, null, null];
+
 var castles = [];
 for (castlePosIndex in castlePosArray) {
 	var curPosObj = castlePosArray[castlePosIndex];
@@ -60,6 +74,10 @@ for (castlePosIndex in castlePosArray) {
 	curCastle.posY = curPosObj.y;
 	curCastle.owner = curPosObj.owner;
 	castles.push(curCastle);
+	
+	if (curCastle.owner != 0) {
+		mainBases[curCastle.owner - 1] = curCastle;
+	}
 }
 // castles.reverse();
 
@@ -76,9 +94,9 @@ for (castleIndex in castles) {
 
 var soldiers = [];
 
-var showStart = true;
-
 function init() {
+	shownScreen = SCREEN_START; 
+	
 	framesToNextSpawn1 = 20;
 	framesToNextSpawn2 = 20;
 	framesToNextSpawn3 = 20;
@@ -131,6 +149,8 @@ function init() {
 	soldierImgs3[1].src = 'img/knight_2gruen.png';
 	soldierImgs3[2].src = 'img/knight_3gruen.png';
 
+	mainBases = [null, null, null];
+	
 	castles = [];
 	for (castlePosIndex in castlePosArray) {
 		var curPosObj = castlePosArray[castlePosIndex];
@@ -139,6 +159,10 @@ function init() {
 		curCastle.posY = curPosObj.y;
 		curCastle.owner = curPosObj.owner;
 		castles.push(curCastle);
+		
+		if (curCastle.owner != 0) {
+			mainBases[curCastle.owner - 1] = curCastle;
+		}
 	}
 	// castles.reverse();
 
@@ -154,5 +178,4 @@ function init() {
 	}
 
 	soldiers = [];
-	showStart = true;
 }

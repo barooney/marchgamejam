@@ -1,13 +1,40 @@
 init();
 
 function getWinner() {
+	// for each player...
+	for (var curPlayer = 1; curPlayer <= 3; curPlayer++) {
+		
+		// Check if the player has won:
+		// ... count the defeted enemies...
+		var intactEnemiesCounter = 0;
+		for (var mainBaseIndex = 0;  mainBaseIndex < mainBases.length; mainBaseIndex++) {
+			var curMainBase = mainBases[mainBaseIndex];
+			var curAssertedOwner = mainBaseIndex + 1;
+			
+			if (curAssertedOwner !== curPlayer && curMainBase.owner === curAssertedOwner) {
+				intactEnemiesCounter++;							
+			}
+		}
+		
+		// Check if the player has lost:
+		if (mainBases[0].owner != 1) {
+			return 2;
+		}
+		
+		// ... and return the player if all of them are defeated 
+		if (intactEnemiesCounter === 0) {
+			return curPlayer;
+		} 
+	}
+	
+	// if no player has won, return 0
 	return 0;
 }
 
-function fly() {	
-	if (showStart) {
+function fly() {
+	if (shownScreen === SCREEN_START) {
 		ctx.drawImage(startscreenImg, 0, 0);
-	} else {
+	} else if (shownScreen === SCREEN_BATTLE) {
 		ctx.clearRect(0, 0, 640, 480);
 		ctx.drawImage(backgroundImg, 0, 0);
 		animFrameCtr++;
@@ -81,28 +108,35 @@ function fly() {
 			newSoldier.owner = 3;
 			soldiers.push(newSoldier);
 		}
-		
+
 		var winner = getWinner();
-		
+
 		if (winner === 1) {
-//			console.log('winner', winner);
-			
+			shownScreen = SCREEN_WIN;
 		} else if (winner > 1) {
-//			console.log('loser! winner:', winner);
+			shownScreen = SCREEN_LOSE;
 		}
+	} else if (shownScreen === SCREEN_WIN) {
+		ctx.drawImage(winScreenImg, 0, 0);
+	} else if (shownScreen === SCREEN_LOSE) {
+		ctx.drawImage(loseScreenImg, 0, 0);
 	}
 	setTimeout('fly()', FRAME_DELAY);
 }
 
 $('canvas').click(function(e) {
-	if (showStart) {
-		showStart = false;
-	} else {
+	if (shownScreen === SCREEN_START) {
+		shownScreen = SCREEN_BATTLE;
+	} else if (shownScreen === SCREEN_WIN) {
+		shownScreen = SCREEN_START;
+	} else if (shownScreen === SCREEN_LOSE) {
+		shownScreen = SCREEN_START;
+	} else if (shownScreen === SCREEN_BATTLE) {
 
 		var x = e.pageX - this.offsetLeft;
 		var y = e.pageY - this.offsetTop;
 
-		for (var c in castles) {
+		for ( var c in castles) {
 			if (castles[c].isInside(x, y) && castles[c].owner === 1) {
 				castles[c].nextTarget();
 			}
