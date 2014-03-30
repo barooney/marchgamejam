@@ -17,10 +17,17 @@ var framesToNextSpawn2;
 var framesToNextSpawn3;
 var mainBases;
 var soldiers;
+var animations;
 
 // initialize images
 var castleImg = new Image();
 castleImg.src = 'img/40x40castle.png';
+var castleFightLoop01Img = new Image();
+castleFightLoop01Img.src = 'img/castle_fight_loop_01.png';
+var castleFightLoop02Img = new Image();
+castleFightLoop02Img.src = 'img/castle_fight_loop_02.png';
+var castleFightLoop03Img = new Image();
+castleFightLoop03Img.src = 'img/castle_fight_loop_03.png';
 var startscreenImg = new Image();
 startscreenImg.src = 'img/startscreen.png';
 var winScreenImg = new Image();
@@ -33,9 +40,9 @@ var way2Img = new Image();
 way2Img.src = 'img/way_2.png';
 var backgroundImg = new Image();
 backgroundImg.src = 'img/background.png';
-var flagImgs1 = [new Image(), new Image()];
-var flagImgs2 = [new Image(), new Image()];
-var flagImgs3 = [new Image(), new Image()];
+var flagImgs1 = [ new Image(), new Image() ];
+var flagImgs2 = [ new Image(), new Image() ];
+var flagImgs3 = [ new Image(), new Image() ];
 flagImgs1[0].src = 'img/fahne_orange_1.png';
 flagImgs1[1].src = 'img/fahne_orange_2.png';
 flagImgs2[0].src = 'img/fahne_blau_1.png';
@@ -48,9 +55,9 @@ var animFrameMax = 5;
 var animFlagFrame = 0;
 var animFlagFrameMax = 1;
 var animFlagFrameCtr = 0;
-var soldierImgs1 = [new Image(), new Image(), new Image()];
-var soldierImgs2 = [new Image(), new Image(), new Image()];
-var soldierImgs3 = [new Image(), new Image(), new Image()];
+var soldierImgs1 = [ new Image(), new Image(), new Image() ];
+var soldierImgs2 = [ new Image(), new Image(), new Image() ];
+var soldierImgs3 = [ new Image(), new Image(), new Image() ];
 soldierImgs1[0].src = 'img/knight_1orange.png';
 soldierImgs1[1].src = 'img/knight_2orange.png';
 soldierImgs1[2].src = 'img/knight_3orange.png';
@@ -70,39 +77,39 @@ var sounds_fanfare = [];
 sounds_fanfare.push(new buzz.sound('snd/Fanfare.mp3'));
 
 function init() {
-
     sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
 
     framesToNextSpawn1 = 20;
     framesToNextSpawn2 = 20;
     framesToNextSpawn3 = 20;
 
-    mainBases = [null, null, null];
+	mainBases = [ null, null, null ];
 
-    castles = [];
-    for (castlePosIndex in castlePosArray) {
-        var curPosObj = castlePosArray[castlePosIndex];
-        var curCastle = new castle();
-        curCastle.posX = curPosObj.x;
-        curCastle.posY = curPosObj.y;
-        curCastle.owner = curPosObj.owner;
-        castles.push(curCastle);
+	castles = [];
+	for (castlePosIndex in castlePosArray) {
+		var curPosObj = castlePosArray[castlePosIndex];
+		var curCastle = new castle();
+		curCastle.posX = curPosObj.x;
+		curCastle.posY = curPosObj.y;
+		curCastle.owner = curPosObj.owner;
+		castles.push(curCastle);
 
-        if (curCastle.owner != 0) {
-            mainBases[curCastle.owner - 1] = curCastle;
-        }
-    }
+		if (curCastle.owner != 0) {
+			mainBases[curCastle.owner - 1] = curCastle;
+		}
+	}
 
-    // connect to neighbours
-    for (castleIndex in castles) {
-        var curCastleNeighbourIndizes = castlePosArray[castleIndex].neighbours;
-        var curCastle = castles[castleIndex];
+	// connect to neighbours
+	for (castleIndex in castles) {
+		var curCastleNeighbourIndizes = castlePosArray[castleIndex].neighbours;
+		var curCastle = castles[castleIndex];
 
-        for (curCastleNeighbourIndizesIndex in curCastleNeighbourIndizes) {
-            var curNeighbourIndex = curCastleNeighbourIndizes[curCastleNeighbourIndizesIndex];
-            curCastle.neighbours.push(castles[curNeighbourIndex]);
-        }
-    }
+		for (curCastleNeighbourIndizesIndex in curCastleNeighbourIndizes) {
+			var curNeighbourIndex = curCastleNeighbourIndizes[curCastleNeighbourIndizesIndex];
+			curCastle.neighbours.push(castles[curNeighbourIndex]);
+		}
+	}
 
-    soldiers = [];
+	soldiers = [];
+	animations = [];
 }

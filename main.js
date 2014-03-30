@@ -1,6 +1,8 @@
 var KI_FRAME_INTERVAL = 1000 / FRAME_DELAY;
 var kiMoveCountDown = KI_FRAME_INTERVAL;
 
+var DEBUG_ONE_TIME_TEST_FLAG = true;
+
 function doAIMoves() {
 	kiMoveCountDown--;
 	if (kiMoveCountDown <= 0) {
@@ -18,7 +20,7 @@ function doAIMoves() {
 		if (castlesPlayer2.length === 0) {
 			return;
 		}
-		
+
 		// select one random castle from the array
 		castleToChangeIndex = Math.floor(Math.random() * castlesPlayer2.length);
 		castleToChange = castlesPlayer2[castleToChangeIndex];
@@ -27,7 +29,7 @@ function doAIMoves() {
 		var rndDirectionIndex = Math.floor(Math.random()
 		        * castleToChange.neighbours.length);
 		castleToChange.selectedDirection = rndDirectionIndex;
-		
+
 		// collect castles of player 3 in an array:
 		var castlesPlayer3 = [];
 		for ( var curCastleIndex in castles) {
@@ -40,7 +42,7 @@ function doAIMoves() {
 		if (castlesPlayer3.length === 0) {
 			return;
 		}
-		
+
 		// select one random castle from the array
 		castleToChangeIndex = Math.floor(Math.random() * castlesPlayer3.length);
 		castleToChange = castlesPlayer3[castleToChangeIndex];
@@ -89,7 +91,7 @@ function fly() {
 		ctx.drawImage(startscreenImg, 0, 0);
 	} else if (shownScreen === SCREEN_BATTLE) {
 		doAIMoves();
-		
+
 		ctx.clearRect(0, 0, 640, 480);
 		ctx.drawImage(backgroundImg, 0, 0);
 		animFrameCtr++;
@@ -122,6 +124,17 @@ function fly() {
 			        soldiers[soldierIndex].progress, 1.0);
 			soldiers[soldierIndex].drawMe();
 			soldiers[soldierIndex].updateCastles();
+		}
+
+		if (DEBUG_ONE_TIME_TEST_FLAG) {
+			DEBUG_ONE_TIME_TEST_FLAG = false;
+			// do something once here
+		}
+
+		// animate the animations
+		for (var i = 0; i < animations.length; i++) {
+			var curAnimation = animations[i];
+			curAnimation.play();
 		}
 
 		// count castles of each player:
