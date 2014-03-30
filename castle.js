@@ -7,28 +7,27 @@ var castle = function() {
 	    owner : 1,
 
 	    drawMe : function() {
-		    ctx.beginPath();
-		    ctx.lineWidth = 0.1;
-
-		    switch (this.owner) {
-		    case 0:
-			    ctx.fillStyle = "rgba(0,0,0,0)";
-			    break;
-		    case 1:
-			    ctx.fillStyle = "rgba(255,0,0,0.5)";
-			    break;
-		    case 2:
-			    ctx.fillStyle = "rgba(0,0,255,0.5)";
-			    break;
-		    case 3:
-			    ctx.fillStyle = "rgba(0,255,0,0.5)";
-			    break;
-		    // draw the castle itself
-		    }
-		    ;
+		    // ctx.beginPath();
+		    // ctx.lineWidth = 0.1;
+		    // switch (this.owner) {
+		    // case 0:
+		    // ctx.fillStyle = "rgba(0,0,0,0)";
+		    // break;
+		    // case 1:
+		    // ctx.fillStyle = "rgba(255,0,0,0.5)";
+		    // break;
+		    // case 2:
+		    // ctx.fillStyle = "rgba(0,0,255,0.5)";
+		    // break;
+		    // case 3:
+		    //			    ctx.fillStyle = "rgba(0,255,0,0.5)";
+		    //			    break;
+		    //		    }
 		    // ctx.arc(this.posX, this.posY, 28, 0, Math.PI * 2, false);
 		    // ctx.fill();
-		    ctx.drawImage(castleImg, this.posX - 20, this.posY - 20);
+
+		    // draw the castle itself
+		    ctx.drawImage(castleImg, this.posX - 20, this.posY - 30);
 	    },
 
 	    drawDirection : function() {
@@ -90,7 +89,7 @@ var castle = function() {
 				    img = flagImgs3[animFlagFrameCtr];
 				    break;
 			    }
-			    ctx.drawImage(img, this.posX - 20, this.posY - 35);
+			    ctx.drawImage(img, this.posX - 20, this.posY - 45);
 		    }
 	    },
 
