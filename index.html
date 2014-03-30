@@ -181,7 +181,7 @@ $('canvas').click(function(e) {
 	  y = e.pageY - this.offsetTop;
 
 	  for (var c in castles) {
-	    if (castles[c].isInside(x,y)) {
+	    if (castles[c].isInside(x,y) && castles[c].owner === 1) {
 	      castles[c].nextTarget();
 	    }
 	  }
