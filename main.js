@@ -1,5 +1,3 @@
-init();
-
 function getWinner() {
 	// for each player...
 	for (var curPlayer = 1; curPlayer <= 3; curPlayer++) {
@@ -127,6 +125,7 @@ function fly() {
 $('canvas').click(function(e) {
 	if (shownScreen === SCREEN_START) {
 		shownScreen = SCREEN_BATTLE;
+		init();
 	} else if (shownScreen === SCREEN_WIN) {
 		shownScreen = SCREEN_START;
 	} else if (shownScreen === SCREEN_LOSE) {
