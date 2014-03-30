@@ -53,6 +53,10 @@ var soldier = function() {
                         soldiers.splice(i, 1)
                         var rndNeighbourIndex = Math.floor(Math.random() * this.startingCastle.neighbours.length);
                         this.startingCastle.selectedDirection = rndNeighbourIndex;
+            			var fightAnimation = new castleFightAnimation();
+            			fightAnimation.x = this.startingCastle.posX - 30;
+            			fightAnimation.y = this.startingCastle.posY - 50;
+            			animations.push(fightAnimation);
                     }
                 }
                 this.startingCastle.owner = this.owner;
