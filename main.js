@@ -119,11 +119,19 @@ function fly() {
 			castles[castleIndex].drawDirection();
 		}
 		for (soldierIndex in soldiers) {
-			soldiers[soldierIndex].progress += soldiers[soldierIndex].velocity;
-			soldiers[soldierIndex].progress = Math.min(
-			        soldiers[soldierIndex].progress, 1.0);
-			soldiers[soldierIndex].drawMe();
-			soldiers[soldierIndex].updateCastles();
+			var curSoldier = soldiers[soldierIndex];
+			curSoldier.progress += curSoldier.velocity;
+			curSoldier.progress = Math.min(
+			curSoldier.progress, 1.0);
+			
+			// check for collisions with enemy soldiers:
+			for (otherSoldierIndex in soldiers) {
+				var otherSoldier = soldiers[otherSoldierIndex];
+				curSoldier.checkCollisions(otherSoldier);
+			}
+			
+			curSoldier.drawMe();
+			curSoldier.updateCastles();
 		}
 
 		if (DEBUG_ONE_TIME_TEST_FLAG) {
