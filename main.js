@@ -15,7 +15,7 @@ function doAIMoves() {
 			if (curCastle.owner === 2) {
 				castlesPlayer2.push(curCastle);
 			}
-		}
+		} 
 
 		if (castlesPlayer2.length === 0) {
 			return;
@@ -99,10 +99,6 @@ function fly() {
 		if (DEBUG_ONE_TIME_TEST_FLAG) {
 			DEBUG_ONE_TIME_TEST_FLAG = false;
 			// do something once here
-		}
-
-		for (buttonIndex in buttons) {
-			buttons[buttonIndex].draw();
 		}
 
 	} else if (shownScreen === SCREEN_BATTLE) {
@@ -226,11 +222,18 @@ function fly() {
 		}
 	} else if (shownScreen === SCREEN_HELP) {
 		ctx.drawImage(helpScreenImg, 0, 0);
+	} else if (shownScreen === SCREEN_CREDITS) {
+		ctx.drawImage(creditsScreenImg, 0, 0);
 	} else if (shownScreen === SCREEN_WIN) {
 		ctx.drawImage(winScreenImg, 0, 0);
 	} else if (shownScreen === SCREEN_LOSE) {
 		ctx.drawImage(loseScreenImg, 0, 0);
 	}
+
+	for (var buttonIndex = 0; buttonIndex < buttons.length; buttonIndex++) {
+		buttons[buttonIndex].draw();
+	}
+
 	setTimeout('fly()', FRAME_DELAY);
 }
 
@@ -238,8 +241,7 @@ $('canvas').click(function(e) {
 	var x = e.pageX - this.offsetLeft;
 	var y = e.pageY - this.offsetTop;
 
-	if (shownScreen === SCREEN_START) {
-	} else if (shownScreen === SCREEN_HELP) {
+	if (shownScreen === SCREEN_HELP) {
 		showStartScreen();
 	} else if (shownScreen === SCREEN_WIN) {
 		showStartScreen();
@@ -251,10 +253,10 @@ $('canvas').click(function(e) {
 				castles[c].nextTarget();
 			}
 		}
-	}
-
-	for (var curBtnIndex = 0; curBtnIndex < buttons.length; curBtnIndex++) {
-		buttons[curBtnIndex].handleClickAt(x, y);
+	} else {
+		for (var curBtnIndex = 0; curBtnIndex < buttons.length; curBtnIndex++) {
+			buttons[curBtnIndex].handleClickAt(x, y);
+		}
 	}
 });
 
@@ -263,20 +265,47 @@ function showHelpScreen() {
 	buttons = [];
 }
 
+function openSomeHomePage() {
+	window.open('http://google.com', '_blank');
+}
+
+function showCreditsScreen() {
+	shownScreen = SCREEN_CREDITS;
+	buttons = [];
+
+	var hpBtn = new button();
+	hpBtn.title = "some home page";
+	hpBtn.callback = openSomeHomePage;
+	buttons.push(hpBtn);
+	
+	var backBtn = new button();
+	backBtn.title = "back";
+	backBtn.callback = showStartScreen;
+	backBtn.y += 200;
+	backBtn.x -= 100;
+	buttons.push(backBtn);
+}
+
 function showStartScreen() {
 	shownScreen = SCREEN_START;
 	buttons = [];
 
 	var startBtn = new button();
-	startBtn.title = "Start Battle"
-	startBtn.callback = startBattle
+	startBtn.title = "Start Battle";
+	startBtn.callback = startBattle;
 	buttons.push(startBtn);
 
 	var hlpBtn = new button();
-	hlpBtn.title = "Help"
+	hlpBtn.title = "Help";
 	hlpBtn.callback = showHelpScreen;
 	hlpBtn.y += 50;
 	buttons.push(hlpBtn);
+
+	var credBtn = new button();
+	credBtn.title = "Credits";
+	credBtn.callback = showCreditsScreen;
+	credBtn.y += 100;
+	buttons.push(credBtn);
 }
 
 showStartScreen();
