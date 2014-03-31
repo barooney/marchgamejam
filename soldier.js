@@ -3,7 +3,7 @@ var soldier = function() {
         startingCastle: null,
         targetCastle: null,
         progress: 0,
-        velocity: (Math.random() * 0.05) + 0.01,
+        velocity: (Math.random() * 0.01) + 0.01,
         owner: 1,
 
         getPosX: function() {
@@ -50,7 +50,7 @@ var soldier = function() {
                 // destroy yourself
                 for (i in soldiers) {
                     if (this === soldiers[i] && this.startingCastle.owner != this.owner) {
-                        soldiers.splice(i, 1);
+//                        soldiers.splice(i, 1);
                         var rndNeighbourIndex = Math.floor(Math.random() * this.startingCastle.neighbours.length);
                         this.startingCastle.selectedDirection = rndNeighbourIndex;
                         var fightAnimation = new castleFightAnimation();

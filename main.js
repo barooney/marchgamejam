@@ -15,7 +15,7 @@ function doAIMoves() {
 			if (curCastle.owner === 2) {
 				castlesPlayer2.push(curCastle);
 			}
-		} 
+		}
 
 		if (castlesPlayer2.length === 0) {
 			return;
@@ -170,7 +170,7 @@ function fly() {
 		framesToNextSpawn1--;
 		if (framesToNextSpawn1 <= 0 && castles[0].owner === 1) {
 
-			framesToNextSpawn1 = 100 / castlesPlayer1;
+			framesToNextSpawn1 = 100 - 2 * castlesPlayer1;
 			var newSoldier = new soldier();
 			newSoldier.startingCastle = castles[0]; // p1=0, p2=15, p3=20
 			newSoldier.targetCastle = castles[0];
@@ -182,7 +182,7 @@ function fly() {
 		// spawn new soldiers regularly
 		framesToNextSpawn2--;
 		if (framesToNextSpawn2 <= 0 && castles[15].owner === 2) {
-			framesToNextSpawn2 = 100 / castlesPlayer2;
+			framesToNextSpawn2 = 500 - 5 * castlesPlayer2;
 			var newSoldier = new soldier();
 			newSoldier.startingCastle = castles[15]; // p1=0, p2=15, p3=20
 			newSoldier.targetCastle = castles[15];
@@ -194,7 +194,7 @@ function fly() {
 		// spawn new soldiers regularly
 		framesToNextSpawn3--;
 		if (framesToNextSpawn3 <= 0 && castles[20].owner === 3) {
-			framesToNextSpawn3 = 100 / castlesPlayer3;
+			framesToNextSpawn3 = 500 - 5 * castlesPlayer3;
 			var newSoldier = new soldier();
 			newSoldier.startingCastle = castles[20]; // p1=0, p2=15, p3=20
 			newSoldier.targetCastle = castles[20];
@@ -277,7 +277,7 @@ function showCreditsScreen() {
 	hpBtn.title = "some home page";
 	hpBtn.callback = openSomeHomePage;
 	buttons.push(hpBtn);
-	
+
 	var backBtn = new button();
 	backBtn.title = "back";
 	backBtn.callback = showStartScreen;
