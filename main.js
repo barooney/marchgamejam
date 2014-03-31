@@ -15,7 +15,7 @@ function doAIMoves() {
 			if (curCastle.owner === 2) {
 				castlesPlayer2.push(curCastle);
 			}
-		}
+		} 
 
 		if (castlesPlayer2.length === 0) {
 			return;
