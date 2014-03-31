@@ -2,6 +2,7 @@ var FRAME_DELAY = 50;
 var SCREEN_START = 'start';
 var SCREEN_BATTLE = 'battle';
 var SCREEN_HELP = 'help';
+var SCREEN_CREDITS = 'credits';
 var SCREEN_WIN = 'win';
 var SCREEN_LOSE = 'lose';
 
@@ -42,6 +43,8 @@ var helpScreenImg = new Image();
 helpScreenImg.src = 'img/helpscreen.png';
 var winScreenImg = new Image();
 winScreenImg.src = 'img/winscreen.png';
+var creditsScreenImg = new Image();
+creditsScreenImg.src = 'img/creditsscreen.png';
 var loseScreenImg = new Image();
 loseScreenImg.src = 'img/losescreen.png';
 var way1Img = new Image();

@@ -7,8 +7,10 @@ var button = function() {
 	    title : 'title',
 	    callback : null,
 	    draw : function() {
+	    	ctx.beginPath();
 		    ctx.rect(this.x, this.y, this.w, this.h);
 		    ctx.stroke();
+		    ctx.closePath();
 
 		    var fontSize = 20;
 
