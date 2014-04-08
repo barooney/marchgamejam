@@ -39,6 +39,12 @@ var NEUTRAL_CASTLE_HIT_POINTS = 1;
 // #######################
 
 // #######################
+// DEBUG Stuff
+// #######################
+// show the set directions of enemy castles?
+var SHOW_ENEMY_CASTLE_DIRECTIONS = false;
+
+// #######################
 // the functions to do balncing from HTML forms
 // #######################
 function applyHtmlBalancingValues() {
@@ -61,4 +67,6 @@ function applyHtmlBalancingValues() {
 	CASTLE_HIT_POINTS = parseInt(document.getElementById('CASTLE_HIT_POINTS').value);
 	NEUTRAL_CASTLE_HIT_POINTS = parseInt(document
 	    .getElementById('NEUTRAL_CASTLE_HIT_POINTS').value);
+	SHOW_ENEMY_CASTLE_DIRECTIONS = document
+  .getElementById('SHOW_ENEMY_CASTLE_DIRECTIONS').checked;
 }

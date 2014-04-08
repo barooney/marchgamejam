@@ -25,6 +25,10 @@ var castle = function() {
 	  },
 
 	  drawDirection : function() {
+		  if (this.owner != 1 && !(SHOW_ENEMY_CASTLE_DIRECTIONS)) {
+			  return;
+		  }
+
 		  ctx.beginPath();
 		  ctx.lineWidth = 0.1;
 		  ctx.fillStyle = "rgba(0,0,0,1)";
