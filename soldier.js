@@ -71,9 +71,7 @@ var soldier = function() {
 		  fightAnimation.x = foughtCastle.posX - 30;
 		  fightAnimation.y = foughtCastle.posY - 50;
 		  animations.push(fightAnimation);
-		  if (playSounds) {
-			  sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
-		  }
+		  soundEngine.playBlade();
 
 		  // damage the castle with some probability
 		  var damaged = false;
@@ -95,7 +93,8 @@ var soldier = function() {
 			  foughtCastle.dmg = 0;
 			  captured = true;
 		  }
-		  if (foughtCastle.owner === 0 && foughtCastle.dmg >= NEUTRAL_CASTLE_HIT_POINTS) {
+		  if (foughtCastle.owner === 0
+		      && foughtCastle.dmg >= NEUTRAL_CASTLE_HIT_POINTS) {
 			  foughtCastle.owner = this.owner;
 			  foughtCastle.dmg = 0;
 			  captured = true;
@@ -110,9 +109,7 @@ var soldier = function() {
 
 		  // play a sound if a main base was captured
 		  if (captured && mainBases.indexOf(foughtCastle) > 0) {
-			  if (playSounds) {
-				  sounds_fanfare[0].play();
-			  }
+			  soundEngine.playFanfare();
 		  }
 
 		  // destroy yourself after attacking a castle if necessary
@@ -146,9 +143,7 @@ var soldier = function() {
 		  fightAnimation.x = this.getPosX() - 20;
 		  fightAnimation.y = this.getPosY() - 35;
 		  animations.push(fightAnimation);
-		  if (playSounds) {
-			  sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
-		  }
+		  soundEngine.playBlade();
 
 		  // kill one of the soldiers
 		  // handle fights between player and AI

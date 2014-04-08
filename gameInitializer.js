@@ -87,22 +87,6 @@ soldierImgs3[0].src = 'img/knight_1blau.png';
 soldierImgs3[1].src = 'img/knight_2blau.png';
 soldierImgs3[2].src = 'img/knight_3blau.png';
 
-// sounds
-var playSounds = true;
-var playMusic = true;
-
-var sound_blades = [];
-sound_blades.push(new buzz.sound('snd/Klinge1.mp3'));
-sound_blades.push(new buzz.sound('snd/Klinge2.mp3'));
-
-var sounds_fanfare = [];
-sounds_fanfare.push(new buzz.sound('snd/Fanfare.mp3'));
-
-var sound_background = new buzz.sound('snd/background.mp3', {
-    autoplay: true,
-    loop: true
-});
-
 function init() {
 	var buttons;
 

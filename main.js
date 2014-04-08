@@ -87,12 +87,12 @@ function getWinner() {
 }
 
 function toggleMusic() {
-	playMusic = !playMusic;
-	sound_background.togglePlay();
+	soundEngine.playMusic = !soundEngine.playMusic;
+	soundEngine.backgroundMusic.togglePlay();
 }
 
 function toggleSound() {
-	playSounds = !playSounds;
+	soundEngine.playSounds = !(soundEngine.playSounds);
 }
 
 function resetButtons() {
@@ -106,7 +106,7 @@ function resetButtons() {
 	toggleMusicBtn.title = "\u266B";
 	toggleMusicBtn.callback = toggleMusic;
 	toggleMusicBtn.isTurnedOff = function() {
-		return (!playMusic);
+		return (!(soundEngine.playMusic));
 	}
 
 	buttons.push(toggleMusicBtn);
@@ -119,7 +119,7 @@ function resetButtons() {
 	toggleSoundBtn.title = "\u266A";
 	toggleSoundBtn.callback = toggleSound;
 	toggleSoundBtn.isTurnedOff = function() {
-		return (!playSounds);
+		return (!(soundEngine.playSounds));
 	}
 	buttons.push(toggleSoundBtn);
 }
@@ -128,9 +128,7 @@ function startBattle() {
 	shownScreen = SCREEN_BATTLE;
 	resetButtons();
 	init();
-	if (playSounds) {
-		sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
-	}
+	soundEngine.playBlade();
 }
 
 function fly() {
