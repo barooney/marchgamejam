@@ -7,26 +7,6 @@ var castle = function() {
         owner: 1,
 
         drawMe: function() {
-            // ctx.beginPath();
-            // ctx.lineWidth = 0.1;
-            // switch (this.owner) {
-            // case 0:
-            // ctx.fillStyle = "rgba(0,0,0,0)";
-            // break;
-            // case 1:
-            // ctx.fillStyle = "rgba(255,0,0,0.5)";
-            // break;
-            // case 2:
-            // ctx.fillStyle = "rgba(0,0,255,0.5)";
-            // break;
-            // case 3:
-            //			    ctx.fillStyle = "rgba(0,255,0,0.5)";
-            //			    break;
-            //		    }
-            // ctx.arc(this.posX, this.posY, 28, 0, Math.PI * 2, false);
-            // ctx.fill();
-
-            // draw the castle itself
             ctx.drawImage(castleImg, this.posX - 20, this.posY - 30);
         },
 
@@ -53,10 +33,6 @@ var castle = function() {
             ctx.lineWidth = 10;
             for (neighboursIndex in this.neighbours) {
                 var curNeighbour = this.neighbours[neighboursIndex];
-                // ctx.beginPath();
-                // ctx.moveTo(this.posX, this.posY);
-                // ctx.lineTo(curNeighbour.posX, curNeighbour.posY);
-                // ctx.stroke();
                 if (curNeighbour.posY === this.posY && this.posX < curNeighbour.posX) {
                     ctx.drawImage(way1Img, this.posX, this.posY - 5);
                 } else if (curNeighbour.posY > this.posY && this.posX < curNeighbour.posX) {

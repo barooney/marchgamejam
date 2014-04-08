@@ -3,7 +3,7 @@ var soldier = function() {
 	  startingCastle : null,
 	  targetCastle : null,
 	  progress : 0,
-	  velocity : (Math.random() * 0.01) + 0.01,
+	  velocity : (Math.random() * SOLDIER_SPEED_BONUS) + SOLDIER_SPEED_BASE,
 	  owner : 1,
 
 	  getPosX : function() {
@@ -50,45 +50,69 @@ var soldier = function() {
 	  updateCastles : function() {
 		  if (this.progress > 0.999) {
 			  this.startingCastle = this.targetCastle;
-			  this.targetCastle = this.startingCastle.neighbours[this.startingCastle.selectedDirection];
 			  this.progress = 0;
 
-			  // destroy yourself
-			  for (i in soldiers) {
-				  if (this === soldiers[i] && this.startingCastle.owner != this.owner) {
-					  // if (this.startingCastle.owner != 0) {
-					  soldiers.splice(i, 1);
-					  // }
-					  var rndNeighbourIndex = Math.floor(Math.random()
-					      * this.startingCastle.neighbours.length);
-					  this.startingCastle.selectedDirection = rndNeighbourIndex;
-					  var fightAnimation = new castleFightAnimation();
-					  fightAnimation.x = this.startingCastle.posX - 30;
-					  fightAnimation.y = this.startingCastle.posY - 50;
-					  animations.push(fightAnimation);
-				  }
-			  }
-			  if (this.startingCastle.owner !== this.owner) {
-				  if (mainBases.indexOf(this.startingCastle) > 0) {
-					  if (playSounds) {
-						  sounds_fanfare[0].play();
-					  }
-				  }
+			  if (this.startingCastle.owner != this.owner) {
+				  this.handleCastleFight(this.startingCastle);
 			  }
 
-			  if (this.startingCastle.owner === 0) {
-				  this.startingCastle.owner = this.owner;
-			  } else if (Math.random() > 0.5) {
-				  this.startingCastle.owner = this.owner;
-			  }
+			  // move on into the direction defined by the caste
+			  this.targetCastle = this.startingCastle.neighbours[this.startingCastle.selectedDirection];
+		  }
+	  },
+
+	  handleCastleFight : function(foughtCastle) {
+
+		  // store some values
+		  var ownerBeforeFight = foughtCastle.owner;
+
+		  // start the fight castle animation and sounds
+		  var fightAnimation = new castleFightAnimation();
+		  fightAnimation.x = foughtCastle.posX - 30;
+		  fightAnimation.y = foughtCastle.posY - 50;
+		  animations.push(fightAnimation);
+		  if (playSounds) {
+			  sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
+		  }
+
+		  // capture the castle with some probability
+		  var captured = false;
+		  if (ownerBeforeFight === 0
+		      && Math.random() <= WIN_AGAINST_NEUTRAL_CASTLE_PROPABILITY) {
+			  foughtCastle.owner = this.owner;
+			  captured = true;
+		  }
+		  if (ownerBeforeFight != 0
+		      && Math.random() <= WIN_AGAINST_ENEMY_CASTLE_PROPABILITY) {
+			  foughtCastle.owner = this.owner;
+			  captured = true;
+		  }
+
+		  // change the direction of a captured castle randomly
+		  if (captured) {
+			  var rndNeighbourIndex = Math.floor(Math.random()
+			      * foughtCastle.neighbours.length);
+			  foughtCastle.selectedDirection = rndNeighbourIndex;
+		  }
+
+		  // play a sound if a main base was captured
+		  if (captured && mainBases.indexOf(foughtCastle) > 0) {
 			  if (playSounds) {
-				  sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
+				  sounds_fanfare[0].play();
 			  }
+		  }
+
+		  // destroy yourself after attacking a castle if necessary
+		  if (ownerBeforeFight != 0 && SOLDIER_SUICIDE_AFTER_ENEMY_CASTLE_ATTACK) {
+			  this.suicide();
+		  }
+		  if (ownerBeforeFight === 0 && SOLDIER_SUICIDE_AFTER_NEUTRAL_CASTLE_ATTACK) {
+			  this.suicide();
 		  }
 	  },
 
 	  checkCollisions : function(otherSoldier) {
-		  // don't apply collisions to yourself or teammembers:
+		  // don't apply collisions to yourself or team members:
 		  if (this.owner === otherSoldier.owner) {
 			  return;
 		  }
@@ -104,6 +128,7 @@ var soldier = function() {
 		  }
 
 		  // handle the collision
+		  // play knight fight animation and sound
 		  var fightAnimation = new knightFightAnimation();
 		  fightAnimation.x = this.getPosX() - 20;
 		  fightAnimation.y = this.getPosY() - 35;
@@ -111,10 +136,30 @@ var soldier = function() {
 		  if (playSounds) {
 			  sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
 		  }
-		  if (Math.random() < 0.5) {
-			  this.suicide();
-		  } else {
-			  otherSoldier.suicide();
+
+		  // kill one of the soldiers
+		  // handle fights between player and AI
+		  if (this.owner === 1) {
+			  if (Math.random() <= WIN_AGAINST_ENEMY_SOLDIER_PROPABILITY) {
+				  otherSoldier.suicide();
+			  } else {
+				  this.suicide();
+			  }
+		  }
+		  if (otherSoldier.owner === 1) {
+			  if (Math.random() < WIN_AGAINST_ENEMY_SOLDIER_PROPABILITY) {
+				  this.suicide();
+			  } else {
+				  otherSoldier.suicide();
+			  }
+		  }
+		  // handle fights between AI and AI
+		  if (this.owner != 1 && otherSoldier.owner != 1) {
+			  if (Math.random() <= 0.5) {
+				  this.suicide();
+			  } else {
+				  otherSoldier.suicide();
+			  }
 		  }
 	  },
 

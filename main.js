@@ -106,9 +106,9 @@ function resetButtons() {
 	toggleMusicBtn.title = "\u266B";
 	toggleMusicBtn.callback = toggleMusic;
 	toggleMusicBtn.isTurnedOff = function() {
-		return (! playMusic);
+		return (!playMusic);
 	}
-	
+
 	buttons.push(toggleMusicBtn);
 
 	var toggleSoundBtn = new button();
@@ -119,7 +119,7 @@ function resetButtons() {
 	toggleSoundBtn.title = "\u266A";
 	toggleSoundBtn.callback = toggleSound;
 	toggleSoundBtn.isTurnedOff = function() {
-		return (! playSounds);
+		return (!playSounds);
 	}
 	buttons.push(toggleSoundBtn);
 }
@@ -211,7 +211,8 @@ function fly() {
 		framesToNextSpawn1--;
 		if (framesToNextSpawn1 <= 0 && castles[0].owner === 1) {
 
-			framesToNextSpawn1 = 100 - 3 * castlesPlayer1;
+			framesToNextSpawn1 = SPAWN_INTERVAL_BASE
+			    - SPAWN_INTERVAL_REDUCTION_PER_CASTLE * castlesPlayer1;
 			var newSoldier = new soldier();
 			newSoldier.startingCastle = castles[0]; // p1=0, p2=15, p3=20
 			newSoldier.targetCastle = castles[0];
@@ -223,7 +224,8 @@ function fly() {
 		// spawn new soldiers regularly
 		framesToNextSpawn2--;
 		if (framesToNextSpawn2 <= 0 && castles[15].owner === 2) {
-			framesToNextSpawn2 = 100 - 3 * castlesPlayer2;
+			framesToNextSpawn2 = SPAWN_INTERVAL_BASE
+			    - SPAWN_INTERVAL_REDUCTION_PER_CASTLE * castlesPlayer2;
 			var newSoldier = new soldier();
 			newSoldier.startingCastle = castles[15]; // p1=0, p2=15, p3=20
 			newSoldier.targetCastle = castles[15];
@@ -235,7 +237,8 @@ function fly() {
 		// spawn new soldiers regularly
 		framesToNextSpawn3--;
 		if (framesToNextSpawn3 <= 0 && castles[20].owner === 3) {
-			framesToNextSpawn3 = 100 - 3 * castlesPlayer3;
+			framesToNextSpawn3 = SPAWN_INTERVAL_BASE
+			    - SPAWN_INTERVAL_REDUCTION_PER_CASTLE * castlesPlayer3;
 			var newSoldier = new soldier();
 			newSoldier.startingCastle = castles[20]; // p1=0, p2=15, p3=20
 			newSoldier.targetCastle = castles[20];
