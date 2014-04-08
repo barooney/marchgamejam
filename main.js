@@ -204,6 +204,24 @@ function fly() {
 				castlesPlayer3++;
 			}
 		}
+		
+		// count soldiers of each player:
+		soldiersPlayer1 = 0;
+		soldiersPlayer2 = 0;
+		soldiersPlayer3 = 0;
+		for ( var curSoldierIndex in soldiers) {
+			var curSoldier = soldiers[curSoldierIndex];
+			if (!curSoldier) {
+				continue;
+			}
+			if (curSoldier.owner === 1) {
+				soldiersPlayer1++;
+			} else if (curSoldier.owner === 2) {
+				soldiersPlayer2++;
+			} else if (curSoldier.owner === 3) {
+				soldiersPlayer3++;
+			}
+		}
 
 		// spawn new soldiers regularly
 		framesToNextSpawn1--;
@@ -246,14 +264,24 @@ function fly() {
 		}
 
 		// show number of castles
-		ctx.drawImage(flagImgs1[0], 530, 30);
-		ctx.drawImage(flagImgs2[0], 530, 60);
-		ctx.drawImage(flagImgs3[0], 530, 90);
+		ctx.drawImage(flagImgs1[0], 480, 30);
+		ctx.drawImage(flagImgs2[0], 480, 60);
+		ctx.drawImage(flagImgs3[0], 480, 90);
 		ctx.font = "20px Palatino Linotype";
 		ctx.fillStyle = "#fff";
-		ctx.fillText(castlesPlayer1, 580, 50);
-		ctx.fillText(castlesPlayer2, 580, 80);
-		ctx.fillText(castlesPlayer3, 580, 110);
+		ctx.fillText(castlesPlayer1, 530, 50);
+		ctx.fillText(castlesPlayer2, 530, 80);
+		ctx.fillText(castlesPlayer3, 530, 110);
+		
+		// show number of soldiers
+		ctx.drawImage(soldierImgs1[0], 570, 30);
+		ctx.drawImage(soldierImgs2[0], 570, 60);
+		ctx.drawImage(soldierImgs3[0], 570, 90);
+		ctx.font = "20px Palatino Linotype";
+		ctx.fillStyle = "#fff";
+		ctx.fillText(soldiersPlayer1, 600, 50);
+		ctx.fillText(soldiersPlayer2, 600, 80);
+		ctx.fillText(soldiersPlayer3, 600, 110);
 
 		var winner = getWinner();
 
