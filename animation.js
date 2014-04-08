@@ -1,3 +1,10 @@
+var tutorial01Img01 = new Image();
+tutorial01Img01.src = 'img/tutorial01_01.png';
+var tutorial01Img02 = new Image();
+tutorial01Img02.src = 'img/tutorial01_02.png';
+var tutorial01Img03 = new Image();
+tutorial01Img03.src = 'img/tutorial01_03.png';
+
 var animation = function() {
 	anAnimation = {
 	    FRAMES_PER_IMAGE : 3,
@@ -53,5 +60,17 @@ var knightFightAnimation = function() {
 	resultAnimation.loopImages.push(knightFightLoop02Img);
 	resultAnimation.loopImages.push(knightFightLoop03Img);
 	resultAnimation.loopAnimationFrames = 10;
+	return resultAnimation;
+};
+
+var tutorialAnimation01 = function() {
+	resultAnimation = new animation();
+	resultAnimation.x = 20;
+	resultAnimation.y = 20;
+	resultAnimation.loopImages.push(tutorial01Img01);
+	resultAnimation.loopImages.push(tutorial01Img02);
+	resultAnimation.loopImages.push(tutorial01Img03);
+	resultAnimation.loopImages.push(tutorial01Img02);
+	resultAnimation.loopAnimationFrames = 150;
 	return resultAnimation;
 };

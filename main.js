@@ -129,6 +129,11 @@ function startBattle() {
 	resetButtons();
 	init();
 	soundEngine.playBlade();
+	
+  var tutorial01Animation = new tutorialAnimation01();
+  tutorial01Animation.x = castles[0].posX - 300;
+  tutorial01Animation.y = castles[0].posY;
+  animations.push(tutorial01Animation);
 }
 
 function fly() {
