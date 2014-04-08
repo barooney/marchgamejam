@@ -296,6 +296,13 @@ function handleBtnClick(x, y) {
 	}
 }
 
+$(document).keyup(function(e) {
+	// esc
+  if (e.keyCode == 27) { 
+  	showStartScreen();
+  }
+});
+
 $('canvas').click(function(e) {
 	var x = e.pageX - this.offsetLeft;
 	var y = e.pageY - this.offsetTop;
