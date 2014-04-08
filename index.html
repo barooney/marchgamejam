@@ -19,6 +19,42 @@
 
 </div>
 
+<div>
+	<hr />
+	<input type="button" value="click"
+		onclick="applyHtmlBalancingValues();" />
+	<hr />
+	SpanRate (in frames per spawn) := spawnBaseValue - (spawnReduction *
+	CastleCount) <br /> spawnBaseValue: <input type="text" value="100"
+		id="SPAWN_INTERVAL_BASE" /> (Frames to spawn base value) <br />
+	spawnReduction: <input type="text" value="3"
+		id="SPAWN_INTERVAL_REDUCTION_PER_CASTLE" /> (Interval reduction
+	implied by each castle) <br />
+	<hr />
+	soldier speed := baseSpeed + RandomValueBetween(0, maxSpeedBonus) <br />
+	baseSpeed: <input type="text" value="0.01" id="SOLDIER_SPEED_BASE" />
+	(soldier base speed in "percent of one way per frame") <br />
+	maxSpeedBonus: <input type="text" value="0.01" id="SOLDIER_SPEED_BONUS" />
+	(soldier speed bonus maximum) <br />
+	<hr />
+	FIGHTING <br /> win rate against neutral castles: <input type="text"
+		value="1" id="WIN_AGAINST_NEUTRAL_CASTLE_PROPABILITY" /> (How likely
+	is the successfull capturing of a neutral castle (0 to 1)?) <br /> win
+	rate against enemy castles: <input type="text" value="0.5"
+		id="WIN_AGAINST_ENEMY_CASTLE_PROPABILITY" /> (How likely is the
+	successfull capturing of an enemy castle (0 to 1)?) <br /> win rate
+	against enemy knights: <input type="text" value="0.5"
+		id="WIN_AGAINST_ENEMY_SOLDIER_PROPABILITY" /> (How likely it to beat
+	an enemy soldier with an own solider (0 to 1)?) <br /> <label>Shall
+		soldiers suicide after attacking an enemy castle? <input
+		id="SOLDIER_SUICIDE_AFTER_ENEMY_CASTLE_ATTACK" type="checkbox" checked="true">
+		<br /> <label>Shall soldiers suicide after attacking a
+			neutral castle? <input id="SOLDIER_SUICIDE_AFTER_NEUTRAL_CASTLE_ATTACK"
+			type="checkbox" checked="true"> <br />
+	</label>
+		<hr />
+</div>
+
 <script src="gameInitializer.js"></script>
 <script src="main.js"></script>
 
