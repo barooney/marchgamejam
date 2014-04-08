@@ -27,7 +27,7 @@ function doAIMoves() {
 
 		// select a random new direction for the selected castle:
 		var rndDirectionIndex = Math.floor(Math.random()
-		        * castleToChange.neighbours.length);
+		    * castleToChange.neighbours.length);
 		castleToChange.selectedDirection = rndDirectionIndex;
 
 		// collect castles of player 3 in an array:
@@ -49,7 +49,7 @@ function doAIMoves() {
 
 		// select a random new direction for the selected castle:
 		var rndDirectionIndex = Math.floor(Math.random()
-		        * castleToChange.neighbours.length);
+		    * castleToChange.neighbours.length);
 		castleToChange.selectedDirection = rndDirectionIndex;
 	}
 }
@@ -66,7 +66,7 @@ function getWinner() {
 			var curAssertedOwner = mainBaseIndex + 1;
 
 			if (curAssertedOwner !== curPlayer
-			        && curMainBase.owner === curAssertedOwner) {
+			    && curMainBase.owner === curAssertedOwner) {
 				intactEnemiesCounter++;
 			}
 		}
@@ -86,10 +86,51 @@ function getWinner() {
 	return 0;
 }
 
+function toggleMusic() {
+	playMusic = !playMusic;
+	sound_background.togglePlay();
+}
+
+function toggleSound() {
+	playSounds = !playSounds;
+}
+
+function resetButtons() {
+	buttons = [];
+
+	var toggleMusicBtn = new button();
+	toggleMusicBtn.x = 20;
+	toggleMusicBtn.y = 20;
+	toggleMusicBtn.w = 30;
+	toggleMusicBtn.h = 30;
+	toggleMusicBtn.title = "\u266B";
+	toggleMusicBtn.callback = toggleMusic;
+	toggleMusicBtn.isTurnedOff = function() {
+		return (! playMusic);
+	}
+	
+	buttons.push(toggleMusicBtn);
+
+	var toggleSoundBtn = new button();
+	toggleSoundBtn.x = 60;
+	toggleSoundBtn.y = 20;
+	toggleSoundBtn.w = 30;
+	toggleSoundBtn.h = 30;
+	toggleSoundBtn.title = "\u266A";
+	toggleSoundBtn.callback = toggleSound;
+	toggleSoundBtn.isTurnedOff = function() {
+		return (! playSounds);
+	}
+	buttons.push(toggleSoundBtn);
+}
+
 function startBattle() {
 	shownScreen = SCREEN_BATTLE;
-	buttons = [];
+	resetButtons();
 	init();
+	if (playSounds) {
+		sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
+	}
 }
 
 function fly() {
@@ -237,32 +278,49 @@ function fly() {
 	setTimeout('fly()', FRAME_DELAY);
 }
 
+/**
+ * Handles a click at (x, y) and triggers callbacks of the buttons at the given
+ * position.
+ * 
+ * @param x
+ *          something like e.pageX - this.offsetLeft;
+ * @param y
+ *          something like e.pageY - this.offsetTop;
+ */
+function handleBtnClick(x, y) {
+	for (var curBtnIndex = 0; curBtnIndex < buttons.length; curBtnIndex++) {
+		buttons[curBtnIndex].handleClickAt(x, y);
+	}
+}
+
 $('canvas').click(function(e) {
 	var x = e.pageX - this.offsetLeft;
 	var y = e.pageY - this.offsetTop;
 
 	if (shownScreen === SCREEN_HELP) {
+		handleBtnClick(x, y);
 		showStartScreen();
 	} else if (shownScreen === SCREEN_WIN) {
+		handleBtnClick(x, y);
 		showStartScreen();
 	} else if (shownScreen === SCREEN_LOSE) {
+		handleBtnClick(x, y);
 		showStartScreen();
 	} else if (shownScreen === SCREEN_BATTLE) {
+		handleBtnClick(x, y);
 		for ( var c in castles) {
 			if (castles[c].isInside(x, y) && castles[c].owner === 1) {
 				castles[c].nextTarget();
 			}
 		}
 	} else {
-		for (var curBtnIndex = 0; curBtnIndex < buttons.length; curBtnIndex++) {
-			buttons[curBtnIndex].handleClickAt(x, y);
-		}
+		handleBtnClick(x, y);
 	}
 });
 
 function showHelpScreen() {
 	shownScreen = SCREEN_HELP;
-	buttons = [];
+	resetButtons();
 }
 
 function openSomeHomePage() {
@@ -271,7 +329,7 @@ function openSomeHomePage() {
 
 function showCreditsScreen() {
 	shownScreen = SCREEN_CREDITS;
-	buttons = [];
+	resetButtons();
 
 	var hpBtn = new button();
 	hpBtn.title = "some home page";
@@ -288,7 +346,7 @@ function showCreditsScreen() {
 
 function showStartScreen() {
 	shownScreen = SCREEN_START;
-	buttons = [];
+	resetButtons();
 
 	var startBtn = new button();
 	startBtn.title = "Start Battle";

@@ -82,6 +82,9 @@ soldierImgs3[1].src = 'img/knight_2gruen.png';
 soldierImgs3[2].src = 'img/knight_3gruen.png';
 
 // sounds
+var playSounds = true;
+var playMusic = true;
+
 var sound_blades = [];
 sound_blades.push(new buzz.sound('snd/Klinge1.mp3'));
 sound_blades.push(new buzz.sound('snd/Klinge2.mp3'));
@@ -96,8 +99,6 @@ var sound_background = new buzz.sound('snd/background.mp3', {
 
 function init() {
 	var buttons;
-
-	sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
 
 	framesToNextSpawn1 = 20;
 	framesToNextSpawn2 = 20;
