@@ -32,18 +32,22 @@ var WIN_AGAINST_NEUTRAL_CASTLE_PROPABILITY = 1.0;
 var WIN_AGAINST_ENEMY_CASTLE_PROPABILITY = 0.5;
 // How likely it to beat an enemy soldier with an own solider (0 to 1)?
 var WIN_AGAINST_ENEMY_SOLDIER_PROPABILITY = 0.5;
+// how many Hitpoints does each castle have after capturing?
+var CASTLE_HIT_POINTS = 4;
+// how many Hitpoints does each castle have after capturing?
+var NEUTRAL_CASTLE_HIT_POINTS = 1;
 // #######################
 
 // #######################
 // the functions to do balncing from HTML forms
 // #######################
 function applyHtmlBalancingValues() {
-	SPAWN_INTERVAL_BASE = parseInt(document
-	    .getElementById('SPAWN_INTERVAL_BASE').value);
+	SPAWN_INTERVAL_BASE = parseInt(document.getElementById('SPAWN_INTERVAL_BASE').value);
 	SPAWN_INTERVAL_REDUCTION_PER_CASTLE = parseInt(document
 	    .getElementById('SPAWN_INTERVAL_REDUCTION_PER_CASTLE').value);
 	SOLDIER_SPEED_BASE = parseFloat(document.getElementById('SOLDIER_SPEED_BASE').value);
-	SOLDIER_SPEED_BONUS = parseFloat(document.getElementById('SOLDIER_SPEED_BONUS').value);
+	SOLDIER_SPEED_BONUS = parseFloat(document
+	    .getElementById('SOLDIER_SPEED_BONUS').value);
 	SOLDIER_SUICIDE_AFTER_ENEMY_CASTLE_ATTACK = document
 	    .getElementById('SOLDIER_SUICIDE_AFTER_ENEMY_CASTLE_ATTACK').checked;
 	SOLDIER_SUICIDE_AFTER_NEUTRAL_CASTLE_ATTACK = document
@@ -54,4 +58,7 @@ function applyHtmlBalancingValues() {
 	    .getElementById('WIN_AGAINST_ENEMY_CASTLE_PROPABILITY').value);
 	WIN_AGAINST_ENEMY_SOLDIER_PROPABILITY = parseFloat(document
 	    .getElementById('WIN_AGAINST_ENEMY_SOLDIER_PROPABILITY').value);
+	CASTLE_HIT_POINTS = parseInt(document.getElementById('CASTLE_HIT_POINTS').value);
+	NEUTRAL_CASTLE_HIT_POINTS = parseInt(document
+	    .getElementById('NEUTRAL_CASTLE_HIT_POINTS').value);
 }

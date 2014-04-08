@@ -75,16 +75,29 @@ var soldier = function() {
 			  sound_blades[Math.floor(Math.random() * sound_blades.length)].play();
 		  }
 
-		  // capture the castle with some probability
-		  var captured = false;
+		  // damage the castle with some probability
+		  var damaged = false;
 		  if (ownerBeforeFight === 0
 		      && Math.random() <= WIN_AGAINST_NEUTRAL_CASTLE_PROPABILITY) {
-			  foughtCastle.owner = this.owner;
-			  captured = true;
+			  foughtCastle.dmg++;
+			  damaged = true;
 		  }
 		  if (ownerBeforeFight != 0
 		      && Math.random() <= WIN_AGAINST_ENEMY_CASTLE_PROPABILITY) {
+			  foughtCastle.dmg++;
+			  damaged = true;
+		  }
+
+		  // capture the castle if the new damage is high enough and repair it
+		  var captured = false;
+		  if (foughtCastle.owner != 0 && foughtCastle.dmg >= CASTLE_HIT_POINTS) {
 			  foughtCastle.owner = this.owner;
+			  foughtCastle.dmg = 0;
+			  captured = true;
+		  }
+		  if (foughtCastle.owner === 0 && foughtCastle.dmg >= NEUTRAL_CASTLE_HIT_POINTS) {
+			  foughtCastle.owner = this.owner;
+			  foughtCastle.dmg = 0;
 			  captured = true;
 		  }
 

@@ -23,8 +23,14 @@ var soldiers;
 var animations;
 
 // initialize images
-var castleImg = new Image();
-castleImg.src = 'img/40x40castle.png';
+var castleDmg0Img = new Image();
+castleDmg0Img.src = 'img/castleDmg0.png';
+var castleDmg1Img = new Image();
+castleDmg1Img.src = 'img/castleDmg1.png';
+var castleDmg2Img = new Image();
+castleDmg2Img.src = 'img/castleDmg2.png';
+var castleDmg3Img = new Image();
+castleDmg3Img.src = 'img/castleDmg3.png';
 var castleFightLoop01Img = new Image();
 castleFightLoop01Img.src = 'img/castle_fight_loop_01.png';
 var castleFightLoop02Img = new Image();
