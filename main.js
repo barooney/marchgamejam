@@ -129,11 +129,11 @@ function startBattle() {
 	resetButtons();
 	init();
 	soundEngine.playBlade();
-	
-  var tutorial01Animation = new tutorialAnimation01();
-  tutorial01Animation.x = castles[0].posX - 300;
-  tutorial01Animation.y = castles[0].posY;
-  animations.push(tutorial01Animation);
+
+	var tutorial01Animation = new tutorialAnimation01();
+	tutorial01Animation.x = castles[0].posX - 300;
+	tutorial01Animation.y = castles[0].posY;
+	animations.push(tutorial01Animation);
 }
 
 function fly() {
@@ -209,7 +209,7 @@ function fly() {
 				castlesPlayer3++;
 			}
 		}
-		
+
 		// count soldiers of each player:
 		soldiersPlayer1 = 0;
 		soldiersPlayer2 = 0;
@@ -268,25 +268,33 @@ function fly() {
 			soldiers.push(newSoldier);
 		}
 
+		// draw background for castle and soldier counters
+		ctx.lineJoin = "round";
+		ctx.lineWidth = 20;
+		ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+		ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+		ctx.strokeRect(490, 35, 130, 100);
+		ctx.fillRect(500, 45, 110, 80);
+
 		// show number of castles
 		ctx.drawImage(flagImgs1[0], 480, 30);
-		ctx.drawImage(flagImgs2[0], 480, 60);
-		ctx.drawImage(flagImgs3[0], 480, 90);
+		ctx.drawImage(flagImgs2[0], 480, 70);
+		ctx.drawImage(flagImgs3[0], 480, 110);
 		ctx.font = "20px Palatino Linotype";
 		ctx.fillStyle = "#fff";
 		ctx.fillText(castlesPlayer1, 530, 50);
-		ctx.fillText(castlesPlayer2, 530, 80);
-		ctx.fillText(castlesPlayer3, 530, 110);
-		
+		ctx.fillText(castlesPlayer2, 530, 90);
+		ctx.fillText(castlesPlayer3, 530, 130);
+
 		// show number of soldiers
-		ctx.drawImage(soldierImgs1[0], 570, 30);
-		ctx.drawImage(soldierImgs2[0], 570, 60);
-		ctx.drawImage(soldierImgs3[0], 570, 90);
+		ctx.drawImage(soldierFrontalImg1, 570, 30);
+		ctx.drawImage(soldierFrontalImg2, 570, 70);
+		ctx.drawImage(soldierFrontalImg3, 570, 110);
 		ctx.font = "20px Palatino Linotype";
 		ctx.fillStyle = "#fff";
 		ctx.fillText(soldiersPlayer1, 600, 50);
-		ctx.fillText(soldiersPlayer2, 600, 80);
-		ctx.fillText(soldiersPlayer3, 600, 110);
+		ctx.fillText(soldiersPlayer2, 600, 90);
+		ctx.fillText(soldiersPlayer3, 600, 130);
 
 		var winner = getWinner();
 
@@ -329,9 +337,9 @@ function handleBtnClick(x, y) {
 
 $(document).keyup(function(e) {
 	// esc
-  if (e.keyCode == 27) { 
-  	showStartScreen();
-  }
+	if (e.keyCode == 27) {
+		showStartScreen();
+	}
 });
 
 $('canvas').click(function(e) {

@@ -24,7 +24,8 @@ var button = function() {
 		  var txtW = ctx.measureText(this.title).width;
 
 		  ctx.fillText(this.title, this.x + this.w / 2 - txtW / 2, this.y + this.h
-		      / 2 + fontSize / 2);
+		      / 2 + fontSize / 3); // + fontSize/2 as y-offset looks worse but
+																// would be correct
 
 		  // draw an X above the button if it's turned off
 		  if (this.isTurnedOff()) {

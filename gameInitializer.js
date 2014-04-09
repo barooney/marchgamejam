@@ -66,8 +66,8 @@ flagImgs1[0].src = 'img/fahne_orange_1.png';
 flagImgs1[1].src = 'img/fahne_orange_2.png';
 flagImgs2[0].src = 'img/fahne_gruen_1.png';
 flagImgs2[1].src = 'img/fahne_gruen_2.png';
-flagImgs3[0].src = 'img/fahne_blau_1.png';
-flagImgs3[1].src = 'img/fahne_blau_2.png';
+flagImgs3[0].src = 'img/fahne_violet_1.png';
+flagImgs3[1].src = 'img/fahne_violet_2.png';
 var animFrame = 0;
 var animFrameCtr = 0;
 var animFrameMax = 5;
@@ -83,9 +83,15 @@ soldierImgs1[2].src = 'img/knight_3orange.png';
 soldierImgs2[0].src = 'img/knight_1gruen.png';
 soldierImgs2[1].src = 'img/knight_2gruen.png';
 soldierImgs2[2].src = 'img/knight_3gruen.png';
-soldierImgs3[0].src = 'img/knight_1blau.png';
-soldierImgs3[1].src = 'img/knight_2blau.png';
-soldierImgs3[2].src = 'img/knight_3blau.png';
+soldierImgs3[0].src = 'img/knight_1violet.png';
+soldierImgs3[1].src = 'img/knight_2violet.png';
+soldierImgs3[2].src = 'img/knight_3violet.png';
+soldierFrontalImg1 = new Image();
+soldierFrontalImg1.src = 'img/knight_orange_vorn_2.png'
+soldierFrontalImg2 = new Image();
+soldierFrontalImg2.src = 'img/knight_gruen_vorn_2.png'
+soldierFrontalImg3 = new Image();
+soldierFrontalImg3.src = 'img/knight_violet_vorn_2.png'
 
 function init() {
 	var buttons;
