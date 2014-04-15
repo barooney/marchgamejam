@@ -1,4 +1,4 @@
-var exec = cordova.require('cordova/exec');
+var exec = require('cordova/exec');
 
 var LowLatencyAudio = {
 
@@ -27,4 +27,4 @@ var LowLatencyAudio = {
     }
 };
 
-//module.exports = LowLatencyAudio;
+module.exports = LowLatencyAudio;
