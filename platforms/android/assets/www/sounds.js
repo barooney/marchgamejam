@@ -1,7 +1,7 @@
 var soundEngine = {
   BLADE_FILES : [ 'snd/Klinge1.mp3', 'snd/Klinge2.mp3' ],
   FANFARE_FILE : 'snd/Fanfare.mp3',
-  MUSIC_FILE : 'snd/background.mp3',
+  MUSIC_FILE : 'snd/music-game.mp3',
 
   // flags to (de-)activate sounds/music
   playSounds : true,

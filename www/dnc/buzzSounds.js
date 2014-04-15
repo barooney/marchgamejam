@@ -3,7 +3,7 @@ var PATH = 'dnc/';
 var soundEngine = {
     BLADE_FILES: [PATH + 'snd/Klinge1.mp3', PATH + 'snd/Klinge2.mp3'],
     FANFARE_FILE: PATH + 'snd/Fanfare.mp3',
-    MUSIC_FILE: PATH + 'snd/background.mp3',
+    MUSIC_FILE: PATH + 'snd/music-game.mp3',
 
     // flags to (de-)activate sounds/music
     playSounds: true,
