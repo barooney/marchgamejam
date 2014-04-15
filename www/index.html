@@ -1,8 +1,15 @@
 <!doctype html>
 <script src="js/index.js"></script>
-<script src="dnc/lib/LowLatencyAudio.js"></script>
+<script>
+if (window._cordovaNative) {
+	// We are in an app
+	document.write('<script src="dnc/lib/LowLatencyAudio.js"><'+'/script>');
+} else {
+	// We are not
+	document.write('<script src="dnc/lib/buzz.min.js"><'+'/script>');
+}
+</script>
 <script src="dnc/lib/jquery-1.11.0.min.js"></script>
-<script src="dnc/lib/buzz.min.js"></script>
 <script src="dnc/button.js"></script>
 <script src="dnc/castlePos.js"></script>
 <script src="dnc/animation.js"></script>
