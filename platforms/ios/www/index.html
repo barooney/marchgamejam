@@ -2,18 +2,30 @@
 <script src="js/index.js"></script>
 <script src="cordova.js"></script>
 <script>
-//alert(window._cordovaNative);
-if (window._cordovaNative) {
+alert('window.IS_DESKTOP: ' + window.IS_DESKTOP);
+alert('window.cordova: ' + window.cordova);
+
+var isiPad = navigator.userAgent.match(/iPad/i) != null;
+
+if (window._cordovaNative || isiPad) {
 	// We are in an app
 	document.write('<script src="dnc/lib/LowLatencyAudio.js"><'+'/script>');
 	document.write('<script src="dnc/llaSounds.js"><'+'/script>');
+	alert('LLA');
 } else {
 	// We are not
 	document.write('<script src="dnc/lib/buzz.min.js"><'+'/script>');
 	document.write('<script src="dnc/buzzSounds.js"><'+'/script>');
+	alert('Buzz');
 }
 </script>
 <script src="dnc/lib/jquery-1.11.0.min.js"></script>
+<script src="dnc/lib/fastclick.js"></script>
+<script>
+	window.addEventListener('load', function() {
+	    FastClick.attach(document.body);
+	}, false);
+</script>
 <script src="dnc/button.js"></script>
 <script src="dnc/castlePos.js"></script>
 <script src="dnc/animation.js"></script>

@@ -2,8 +2,9 @@
 <script src="js/index.js"></script>
 <script src="cordova.js"></script>
 <script>
-//alert(window._cordovaNative);
-if (window._cordovaNative) {
+alert('window.IS_DESKTOP: ' + window.IS_DESKTOP);
+alert('window._cordovaNative: ' + window._cordovaNative);
+if (window._cordovaNative && !window.IS_DESKTOP) {
 	// We are in an app
 	document.write('<script src="dnc/lib/LowLatencyAudio.js"><'+'/script>');
 	document.write('<script src="dnc/llaSounds.js"><'+'/script>');

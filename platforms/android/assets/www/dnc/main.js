@@ -17,18 +17,16 @@ function doAIMoves() {
 			}
 		}
 
-		if (castlesPlayer2.length === 0) {
-			return;
+		if (castlesPlayer2.length > 0) {
+			// select one random castle from the array
+			castleToChangeIndex = Math.floor(Math.random() * castlesPlayer2.length);
+			castleToChange = castlesPlayer2[castleToChangeIndex];
+
+			// select a random new direction for the selected castle:
+			var rndDirectionIndex = Math.floor(Math.random()
+			    * castleToChange.neighbours.length);
+			castleToChange.selectedDirection = rndDirectionIndex;
 		}
-
-		// select one random castle from the array
-		castleToChangeIndex = Math.floor(Math.random() * castlesPlayer2.length);
-		castleToChange = castlesPlayer2[castleToChangeIndex];
-
-		// select a random new direction for the selected castle:
-		var rndDirectionIndex = Math.floor(Math.random()
-		    * castleToChange.neighbours.length);
-		castleToChange.selectedDirection = rndDirectionIndex;
 
 		// collect castles of player 3 in an array:
 		var castlesPlayer3 = [];
@@ -39,18 +37,16 @@ function doAIMoves() {
 			}
 		}
 
-		if (castlesPlayer3.length === 0) {
-			return;
+		if (castlesPlayer3.length > 0) {
+			// select one random castle from the array
+			castleToChangeIndex = Math.floor(Math.random() * castlesPlayer3.length);
+			castleToChange = castlesPlayer3[castleToChangeIndex];
+
+			// select a random new direction for the selected castle:
+			var rndDirectionIndex = Math.floor(Math.random()
+			    * castleToChange.neighbours.length);
+			castleToChange.selectedDirection = rndDirectionIndex;
 		}
-
-		// select one random castle from the array
-		castleToChangeIndex = Math.floor(Math.random() * castlesPlayer3.length);
-		castleToChange = castlesPlayer3[castleToChangeIndex];
-
-		// select a random new direction for the selected castle:
-		var rndDirectionIndex = Math.floor(Math.random()
-		    * castleToChange.neighbours.length);
-		castleToChange.selectedDirection = rndDirectionIndex;
 	}
 }
 
@@ -129,6 +125,7 @@ function startBattle() {
 	resetButtons();
 	init();
 	soundEngine.playBlade();
+	soundEngine.startBattleMusic();
 
 	var tutorial01Animation = new tutorialAnimation01();
 	tutorial01Animation.x = castles[0].posX - 300;
@@ -299,9 +296,9 @@ function fly() {
 		var winner = getWinner();
 
 		if (winner === 1) {
-			shownScreen = SCREEN_WIN;
+			showWinScreen();
 		} else if (winner > 1) {
-			shownScreen = SCREEN_LOSE;
+			showLoseScreen();
 		}
 	} else if (shownScreen === SCREEN_HELP) {
 		ctx.drawImage(helpScreenImg, 0, 0);
@@ -339,6 +336,7 @@ $(document).keyup(function(e) {
 	// esc
 	if (e.keyCode == 27) {
 		showStartScreen();
+		soundEngine.startMenuMusic();
 	}
 });
 
@@ -352,9 +350,11 @@ $('canvas').click(function(e) {
 	} else if (shownScreen === SCREEN_WIN) {
 		handleBtnClick(x, y);
 		showStartScreen();
+		soundEngine.startMenuMusic();
 	} else if (shownScreen === SCREEN_LOSE) {
 		handleBtnClick(x, y);
 		showStartScreen();
+		soundEngine.startMenuMusic();
 	} else if (shownScreen === SCREEN_BATTLE) {
 		handleBtnClick(x, y);
 		for ( var c in castles) {
@@ -391,6 +391,18 @@ function showCreditsScreen() {
 	backBtn.y += 200;
 	backBtn.x -= 100;
 	buttons.push(backBtn);
+}
+
+function showWinScreen() {
+	shownScreen = SCREEN_WIN;
+	soundEngine.playGameWin();
+	soundEngine.stopMusic();
+}
+
+function showLoseScreen() {
+	shownScreen = SCREEN_LOSE;
+	soundEngine.playGameLose();
+	soundEngine.stopMusic();
 }
 
 function showStartScreen() {
