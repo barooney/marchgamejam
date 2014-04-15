@@ -1,4 +1,4 @@
-cordova.define("com.phonegap.LowLatencyAudio.LowLatencyAudio", function(require, exports, module) {
+cordova.define("com.phonegap.LowLatencyAudio.LowLatencyAudio", function(require, exports, module) { 
 
 var exec = require('cordova/exec');
 
@@ -30,6 +30,7 @@ var LowLatencyAudio = {
 };
 
 module.exports = LowLatencyAudio;
+
 
 
 });

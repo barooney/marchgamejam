@@ -1,15 +1,26 @@
 <!doctype html>
 <script src="js/index.js"></script>
-<script src="LowLatencyAudio.js"></script>
-<script src="lib/jquery-1.11.0.min.js"></script>
-<script src="lib/buzz.min.js"></script>
-<script src="button.js"></script>
-<script src="castlePos.js"></script>
-<script src="animation.js"></script>
-<script src="sounds.js"></script>
-<script src="balancingStuff.js"></script>
-<script src="castle.js"></script>
-<script src="soldier.js"></script>
+<script src="cordova.js"></script>
+<script>
+//alert(window._cordovaNative);
+if (window._cordovaNative) {
+	// We are in an app
+	document.write('<script src="dnc/lib/LowLatencyAudio.js"><'+'/script>');
+	document.write('<script src="dnc/llaSounds.js"><'+'/script>');
+} else {
+	// We are not
+	document.write('<script src="dnc/lib/buzz.min.js"><'+'/script>');
+	document.write('<script src="dnc/buzzSounds.js"><'+'/script>');
+}
+</script>
+<script src="dnc/lib/jquery-1.11.0.min.js"></script>
+<script src="dnc/button.js"></script>
+<script src="dnc/castlePos.js"></script>
+<script src="dnc/animation.js"></script>
+<script src="dnc/gameSounds.js"></script>
+<script src="dnc/balancingStuff.js"></script>
+<script src="dnc/castle.js"></script>
+<script src="dnc/soldier.js"></script>
 <head>
 <title>revolution</title>
 <meta charset="utf-8">
@@ -101,6 +112,6 @@
 	</p>
 </div>
 
-<script src="gameInitializer.js"></script>
-<script src="main.js"></script>
+<script src="dnc/gameInitializer.js"></script>
+<script src="dnc/main.js"></script>
 
