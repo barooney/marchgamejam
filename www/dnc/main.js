@@ -88,7 +88,7 @@ function getWinner() {
 
 function toggleMusic() {
 	soundEngine.playMusic = !soundEngine.playMusic;
-	soundEngine.backgroundMusic.togglePlay();
+	soundEngine.toggleMusic();
 }
 
 function toggleSound() {
