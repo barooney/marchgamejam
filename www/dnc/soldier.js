@@ -26,20 +26,20 @@ var soldier = function() {
 			  mirroredMultiplier = -1;
 		  }
 
+		  drawnSoldierImage = null;
 		  switch (this.owner) {
 		  case 1:
-			  ctx.drawImage(soldierImgs1[animFrame], mirroredMultiplier
-			      * this.getPosX() - 15, this.getPosY() + yOffset);
+			  drawnSoldierImage = soldierImgs1[animFrame];
 			  break;
 		  case 2:
-			  ctx.drawImage(soldierImgs2[animFrame], mirroredMultiplier
-			      * this.getPosX() - 15, this.getPosY() + yOffset);
+			  drawnSoldierImage = soldierImgs2[animFrame];
 			  break;
 		  case 3:
-			  ctx.drawImage(soldierImgs3[animFrame], mirroredMultiplier
-			      * this.getPosX() - 15, this.getPosY() + yOffset);
+			  drawnSoldierImage = soldierImgs3[animFrame];
 			  break;
 		  }
+		  ctx.drawImage(drawnSoldierImage, mirroredMultiplier * (this.getPosX() + OFFSET_X) - 15
+		      , this.getPosY() + yOffset + OFFSET_Y);
 
 		  if (mirroredMultiplier == -1) {
 			  ctx.scale(-1, 1);

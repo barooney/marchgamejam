@@ -18,7 +18,7 @@ var animation = function() {
         loopAnimationFrames: 50,
 
         play: function() {
-            ctx.drawImage(this.loopImages[this.curImgIndex], this.x, this.y);
+            ctx.drawImage(this.loopImages[this.curImgIndex], this.x + OFFSET_X, this.y + OFFSET_Y);
             this.framesLeftForCurImg--;
             this.loopAnimationFrames--;
 

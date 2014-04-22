@@ -34,96 +34,97 @@ if (window._cordovaNative || isiPad) {
 <script src="dnc/castle.js"></script>
 <script src="dnc/soldier.js"></script>
 <head>
-<title>revolution</title>
+<title>Direct and Conquer</title>
 <meta charset="utf-8">
 
 </head>
-<div style="display: table; width: 100%; height: 100%;">
-	<canvas id="myCanvas" width="640" height="480"
-		style="display: table-cell; margin: auto;">
+<body style="margin: 0px; padding: 0px;">
+	<div
+		style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #CCC; background-size: 100% 100%; background-image: url('dnc/img/background_big.jpg')">
+		<canvas id="myCanvas" width="700" height="400"
+			style="background: #F0F; position: relative; left: 0; top: 0; margin: 0 auto; padding: 0; border: 0;">
 		</canvas>
+	</div>
 
-</div>
+	<div>
+		<hr />
+		<h1>Balancing</h1>
+		<input type="button" value="Apply the values below"
+			onclick="applyHtmlBalancingValues();" />
+		<hr />
+		<h3>Spawn Rate</h3>
+		<p>SpanRate (in frames per spawn) := spawnBaseValue -
+			(spawnReduction * CastleCount)</p>
+		<p>
+			spawnBaseValue: <input type="text" value="100"
+				id="SPAWN_INTERVAL_BASE" /> (Frames to spawn base value)
+		</p>
+		<p>
+			spawnReduction: <input type="text" value="3"
+				id="SPAWN_INTERVAL_REDUCTION_PER_CASTLE" /> (Interval reduction
+			implied by each castle)
+		</p>
+		<hr />
+		<h3>Soldier Speed</h3>
+		<p>soldier speed := baseSpeed + RandomValueBetween(0,
+			maxSpeedBonus)</p>
+		<p>
+			baseSpeed: <input type="text" value="0.01" id="SOLDIER_SPEED_BASE" />
+			(soldier base speed in "percent of one way per frame")
+		</p>
+		<p>
+			maxSpeedBonus: <input type="text" value="0.01"
+				id="SOLDIER_SPEED_BONUS" /> (soldier speed bonus maximum)
+		</p>
+		<hr />
+		<h3>Fighting</h3>
+		<p>
+			win rate against neutral castles: <input type="text" value="1"
+				id="WIN_AGAINST_NEUTRAL_CASTLE_PROPABILITY" /> (How likely is the
+			successfull capturing of a neutral castle (0 to 1)?)
+		</p>
+		<p>
+			win rate against enemy castles: <input type="text" value="0.5"
+				id="WIN_AGAINST_ENEMY_CASTLE_PROPABILITY" /> (How likely is the
+			successfull capturing of an enemy castle (0 to 1)?)
+		</p>
+		<p>
+			win rate against enemy knights: <input type="text" value="0.5"
+				id="WIN_AGAINST_ENEMY_SOLDIER_PROPABILITY" /> (How likely it to
+			beat an enemy soldier with an own solider (0 to 1)?)
+		</p>
+		<p>
+			<label>Shall soldiers suicide after attacking an enemy
+				castle? <input id="SOLDIER_SUICIDE_AFTER_ENEMY_CASTLE_ATTACK"
+				type="checkbox" checked="true">
+			</label>
+		</p>
 
-<div>
-	<hr />
-	<h1>Balancing</h1>
-	<input type="button" value="Apply the values below"
-		onclick="applyHtmlBalancingValues();" />
-	<hr />
-	<h3>Spawn Rate</h3>
-	<p>SpanRate (in frames per spawn) := spawnBaseValue -
-		(spawnReduction * CastleCount)</p>
-	<p>
-		spawnBaseValue: <input type="text" value="100"
-			id="SPAWN_INTERVAL_BASE" /> (Frames to spawn base value)
-	</p>
-	<p>
-		spawnReduction: <input type="text" value="3"
-			id="SPAWN_INTERVAL_REDUCTION_PER_CASTLE" /> (Interval reduction
-		implied by each castle)
-	</p>
-	<hr />
-	<h3>Soldier Speed</h3>
-	<p>soldier speed := baseSpeed + RandomValueBetween(0,
-		maxSpeedBonus)</p>
-	<p>
-		baseSpeed: <input type="text" value="0.01" id="SOLDIER_SPEED_BASE" />
-		(soldier base speed in "percent of one way per frame")
-	</p>
-	<p>
-		maxSpeedBonus: <input type="text" value="0.01"
-			id="SOLDIER_SPEED_BONUS" /> (soldier speed bonus maximum)
-	</p>
-	<hr />
-	<h3>Fighting</h3>
-	<p>
-		win rate against neutral castles: <input type="text" value="1"
-			id="WIN_AGAINST_NEUTRAL_CASTLE_PROPABILITY" /> (How likely is the
-		successfull capturing of a neutral castle (0 to 1)?)
-	</p>
-	<p>
-		win rate against enemy castles: <input type="text" value="0.5"
-			id="WIN_AGAINST_ENEMY_CASTLE_PROPABILITY" /> (How likely is the
-		successfull capturing of an enemy castle (0 to 1)?)
-	</p>
-	<p>
-		win rate against enemy knights: <input type="text" value="0.5"
-			id="WIN_AGAINST_ENEMY_SOLDIER_PROPABILITY" /> (How likely it to beat
-		an enemy soldier with an own solider (0 to 1)?)
-	</p>
-	<p>
-		<label>Shall soldiers suicide after attacking an enemy castle?
-			<input id="SOLDIER_SUICIDE_AFTER_ENEMY_CASTLE_ATTACK" type="checkbox"
-			checked="true">
-		</label>
-	</p>
+		<p>
+			<label>Shall soldiers suicide after attacking a neutral
+				castle? <input id="SOLDIER_SUICIDE_AFTER_NEUTRAL_CASTLE_ATTACK"
+				type="checkbox" checked="true">
+			</label>
+		</p>
+		<p>
+			hit points of owned castles: <input type="text" value="4"
+				id="CASTLE_HIT_POINTS" /> (How oft do knights have to fight
+			successfully against an enemy castle before capturing it?)
+		</p>
+		<p>
+			hit points of neutral castles: <input type="text" value="1"
+				id="NEUTRAL_CASTLE_HIT_POINTS" /> (How oft do knights have to fight
+			successfully against a neutral castle before capturing it?)
+		</p>
+		<hr />
+		<h1>Debugging Stuff</h1>
+		<p>
+			<label>Show enemy Castle Directions? <input
+				id="SHOW_ENEMY_CASTLE_DIRECTIONS" type="checkbox">
+			</label>
+		</p>
+	</div>
 
-	<p>
-		<label>Shall soldiers suicide after attacking a neutral
-			castle? <input id="SOLDIER_SUICIDE_AFTER_NEUTRAL_CASTLE_ATTACK"
-			type="checkbox" checked="true">
-		</label>
-	</p>
-	<p>
-		hit points of owned castles: <input type="text" value="4"
-			id="CASTLE_HIT_POINTS" /> (How oft do knights have to fight
-		successfully against an enemy castle before capturing it?)
-	</p>
-	<p>
-		hit points of neutral castles: <input type="text" value="1"
-			id="NEUTRAL_CASTLE_HIT_POINTS" /> (How oft do knights have to fight
-		successfully against a neutral castle before capturing it?)
-	</p>
-	<hr />
-	<h1>Debugging Stuff</h1>
-	<p>
-		<label>Show enemy Castle Directions? <input
-			id="SHOW_ENEMY_CASTLE_DIRECTIONS" type="checkbox">
-		</label>
-	</p>
-</div>
-
-<script src="dnc/gameInitializer.js"></script>
-<script src="dnc/main.js"></script>
-
+	<script src="dnc/gameInitializer.js"></script>
+	<script src="dnc/main.js"></script>
+</body>

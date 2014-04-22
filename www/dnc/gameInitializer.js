@@ -10,9 +10,51 @@ var SCREEN_LOSE = 'lose';
 // global variables
 var shownScreen = SCREEN_START;
 var c = document.getElementById("myCanvas");
+c.width = window.screen.availWidth;
+c.height = window.screen.availHeight;
 var ctx = c.getContext("2d");
+
 var buttons = [];
 var PATH = 'dnc/';
+
+var OFFSET_X = 0;
+var OFFSET_Y = 0;
+var BACKGROUND_BIG_OFFSET_X = 0;
+var BACKGROUND_BIG_OFFSET_Y = 0;
+var initializeResolution = function() {
+	// use body size for calculations
+	var $body = $(this.ie6 ? document.body : document); // using document in ie6
+	// causes a crash
+	var $window = $(window);
+	var availWidth = $window.width();
+	var availHeight = $window.height();
+
+	var PLAYGROUND_IMG_RESOLUTION_X = 640;
+	var PLAYGROUND_IMG_RESOLUTION_Y = 480;
+	var perfectRatio = PLAYGROUND_IMG_RESOLUTION_X / PLAYGROUND_IMG_RESOLUTION_Y;
+	var screenRatio = availWidth / availHeight;
+
+	// ctx.imageSmoothingEnabled = false;
+	// ctx.webkitImageSmoothingEnabled = false;
+	// ctx.mozImageSmoothingEnabled = false;
+
+	if (screenRatio > perfectRatio) {
+		// to bars at the sides
+		scaleRate = availHeight / PLAYGROUND_IMG_RESOLUTION_Y;
+		OFFSET_X = ((availWidth - (PLAYGROUND_IMG_RESOLUTION_X * scaleRate)) / 2)
+		    / scaleRate;
+	} else {
+		// to bars at top and bottom
+		scaleRate = availWidth / PLAYGROUND_IMG_RESOLUTION_X;
+		OFFSET_Y = ((availHeight - (PLAYGROUND_IMG_RESOLUTION_Y * scaleRate)) / 2)
+		    / scaleRate;
+	}
+	ctx.scale(scaleRate, scaleRate);
+
+	BACKGROUND_BIG_OFFSET_X = (640 - 800) / 2 + OFFSET_X;
+	BACKGROUND_BIG_OFFSET_Y = (480 - 800) / 2 + OFFSET_Y;
+}
+initializeResolution();
 
 // global battlefield variables
 var mainBases;
@@ -46,24 +88,24 @@ knightFightLoop02Img.src = PATH + 'img/knight_fight_loop_02.png';
 var knightFightLoop03Img = new Image();
 knightFightLoop03Img.src = PATH + 'img/knight_fight_loop_03.png';
 var startscreenImg = new Image();
-startscreenImg.src = PATH + 'img/startscreen.png';
+startscreenImg.src = PATH + 'img/startscreen_big2.jpg';
 var helpScreenImg = new Image();
-helpScreenImg.src = PATH + 'img/helpscreen.png';
+helpScreenImg.src = PATH + 'img/helpscreen_big2.jpg';
 var winScreenImg = new Image();
-winScreenImg.src = PATH + 'img/winscreen.png';
+winScreenImg.src = PATH + 'img/winscreen_big2.jpg';
 var creditsScreenImg = new Image();
-creditsScreenImg.src = PATH + 'img/creditsscreen.png';
+creditsScreenImg.src = PATH + 'img/creditsscreen_big2.jpg';
 var loseScreenImg = new Image();
-loseScreenImg.src = PATH + 'img/losescreen.png';
+loseScreenImg.src = PATH + 'img/losescreen_big2.jpg';
 var way1Img = new Image();
 way1Img.src = PATH + 'img/way_1.png';
 var way2Img = new Image();
 way2Img.src = PATH + 'img/way_2.png';
 var backgroundImg = new Image();
-backgroundImg.src = PATH + 'img/background.png';
-var flagImgs1 = [new Image(), new Image()];
-var flagImgs2 = [new Image(), new Image()];
-var flagImgs3 = [new Image(), new Image()];
+backgroundImg.src = PATH + 'img/background_big2.jpg';
+var flagImgs1 = [ new Image(), new Image() ];
+var flagImgs2 = [ new Image(), new Image() ];
+var flagImgs3 = [ new Image(), new Image() ];
 flagImgs1[0].src = PATH + 'img/fahne_orange_1.png';
 flagImgs1[1].src = PATH + 'img/fahne_orange_2.png';
 flagImgs2[0].src = PATH + 'img/fahne_gruen_1.png';
@@ -76,9 +118,9 @@ var animFrameMax = 5;
 var animFlagFrame = 0;
 var animFlagFrameMax = 1;
 var animFlagFrameCtr = 0;
-var soldierImgs1 = [new Image(), new Image(), new Image()];
-var soldierImgs2 = [new Image(), new Image(), new Image()];
-var soldierImgs3 = [new Image(), new Image(), new Image()];
+var soldierImgs1 = [ new Image(), new Image(), new Image() ];
+var soldierImgs2 = [ new Image(), new Image(), new Image() ];
+var soldierImgs3 = [ new Image(), new Image(), new Image() ];
 soldierImgs1[0].src = PATH + 'img/knight_1orange.png';
 soldierImgs1[1].src = PATH + 'img/knight_2orange.png';
 soldierImgs1[2].src = PATH + 'img/knight_3orange.png';
@@ -96,39 +138,39 @@ soldierFrontalImg3 = new Image();
 soldierFrontalImg3.src = PATH + 'img/knight_violet_vorn_2.png';
 
 function init() {
-    var buttons;
+	var buttons;
 
-    framesToNextSpawn1 = 20;
-    framesToNextSpawn2 = 20;
-    framesToNextSpawn3 = 20;
+	framesToNextSpawn1 = 20;
+	framesToNextSpawn2 = 20;
+	framesToNextSpawn3 = 20;
 
-    mainBases = [null, null, null];
+	mainBases = [ null, null, null ];
 
-    castles = [];
-    for (var castlePosIndex in castlePosArray) {
-        var curPosObj = castlePosArray[castlePosIndex];
-        var curCastle = new castle();
-        curCastle.posX = curPosObj.x;
-        curCastle.posY = curPosObj.y;
-        curCastle.owner = curPosObj.owner;
-        castles.push(curCastle);
+	castles = [];
+	for ( var castlePosIndex in castlePosArray) {
+		var curPosObj = castlePosArray[castlePosIndex];
+		var curCastle = new castle();
+		curCastle.posX = curPosObj.x;
+		curCastle.posY = curPosObj.y;
+		curCastle.owner = curPosObj.owner;
+		castles.push(curCastle);
 
-        if (curCastle.owner !== 0) {
-            mainBases[curCastle.owner - 1] = curCastle;
-        }
-    }
+		if (curCastle.owner !== 0) {
+			mainBases[curCastle.owner - 1] = curCastle;
+		}
+	}
 
-    // connect to neighbours
-    for (var castleIndex in castles) {
-        var curCastleNeighbourIndizes = castlePosArray[castleIndex].neighbours;
-        var curCastle = castles[castleIndex];
+	// connect to neighbours
+	for ( var castleIndex in castles) {
+		var curCastleNeighbourIndizes = castlePosArray[castleIndex].neighbours;
+		var curCastle = castles[castleIndex];
 
-        for (var curCastleNeighbourIndizesIndex in curCastleNeighbourIndizes) {
-            var curNeighbourIndex = curCastleNeighbourIndizes[curCastleNeighbourIndizesIndex];
-            curCastle.neighbours.push(castles[curNeighbourIndex]);
-        }
-    }
+		for ( var curCastleNeighbourIndizesIndex in curCastleNeighbourIndizes) {
+			var curNeighbourIndex = curCastleNeighbourIndizes[curCastleNeighbourIndizesIndex];
+			curCastle.neighbours.push(castles[curNeighbourIndex]);
+		}
+	}
 
-    soldiers = [];
-    animations = [];
+	soldiers = [];
+	animations = [];
 }
