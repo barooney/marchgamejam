@@ -7,7 +7,7 @@ alert('window.cordova: ' + window.cordova);
 
 var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
-if (window._cordovaNative || isiPad) {
+if (window._cordovaNative) {
 	// We are in an app
 	document.write('<script src="dnc/lib/LowLatencyAudio.js"><'+'/script>');
 	document.write('<script src="dnc/llaSounds.js"><'+'/script>');
