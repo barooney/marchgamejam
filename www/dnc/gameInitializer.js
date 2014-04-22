@@ -1,4 +1,5 @@
-var FRAME_DELAY = 50;
+var DESIRED_FPS = 60;
+var MILLISECONDS_PER_FRAME = 1000.0 / DESIRED_FPS;
 var SCREEN_START = 'start';
 var SCREEN_BATTLE = 'battle';
 var SCREEN_HELP = 'help';

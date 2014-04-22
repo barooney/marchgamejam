@@ -1,4 +1,4 @@
-var KI_FRAME_INTERVAL = 1000 / FRAME_DELAY;
+var KI_FRAME_INTERVAL = 1000 / MILLISECONDS_PER_FRAME;
 var kiMoveCountDown = KI_FRAME_INTERVAL;
 
 var DEBUG_ONE_TIME_TEST_FLAG = true;
@@ -133,6 +133,9 @@ function startBattle() {
 }
 
 function fly() {
+	// calculate start date for FPS calculation.
+	var startDate = new Date();
+
 	if (shownScreen === SCREEN_START) {
 		ctx.drawImage(startscreenImg, 0, 0);
 
@@ -313,7 +316,14 @@ function fly() {
 		buttons[buttonIndex].draw();
 	}
 
-	setTimeout('fly()', FRAME_DELAY);
+	// calculate spent time for frame
+	var endDate = new Date();
+	var dateDiff = new Date(endDate.getTime() - startDate.getTime());
+	var spentMilliseconds = dateDiff.getMilliseconds();
+	var pauseToNextFrame = Math
+	    .max(1, MILLISECONDS_PER_FRAME - spentMilliseconds);
+
+	setTimeout('fly()', pauseToNextFrame);
 }
 
 /**
