@@ -137,7 +137,7 @@ function fly() {
 	var startDate = new Date();
 
 	if (shownScreen === SCREEN_START) {
-		ctx.drawImage(startscreenImg, 0, 0);
+		ctx.drawImage(startscreenImg, 0 + BACKGROUND_BIG_OFFSET_X, 0 + BACKGROUND_BIG_OFFSET_Y);
 
 		if (DEBUG_ONE_TIME_TEST_FLAG) {
 			DEBUG_ONE_TIME_TEST_FLAG = false;
@@ -147,8 +147,8 @@ function fly() {
 	} else if (shownScreen === SCREEN_BATTLE) {
 		doAIMoves();
 
-		ctx.clearRect(0, 0, 640, 480);
-		ctx.drawImage(backgroundImg, 0, 0);
+		ctx.clearRect(0, 0, c.width, c.height);
+		ctx.drawImage(backgroundImg, 0 + BACKGROUND_BIG_OFFSET_X, 0 + BACKGROUND_BIG_OFFSET_Y);
 		animFrameCtr++;
 		if (animFrameCtr < animFrameMax) {
 
@@ -272,28 +272,28 @@ function fly() {
 		ctx.lineWidth = 20;
 		ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
 		ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-		ctx.strokeRect(490, 35, 130, 100);
-		ctx.fillRect(500, 45, 110, 80);
+		ctx.strokeRect(490 + OFFSET_X, 35 + OFFSET_Y, 130, 100);
+		ctx.fillRect(500 + OFFSET_X, 45 + OFFSET_Y, 110, 80);
 
 		// show number of castles
-		ctx.drawImage(flagImgs1[0], 480, 30);
-		ctx.drawImage(flagImgs2[0], 480, 70);
-		ctx.drawImage(flagImgs3[0], 480, 110);
+		ctx.drawImage(flagImgs1[0], 480 + OFFSET_X, 30 + OFFSET_Y);
+		ctx.drawImage(flagImgs2[0], 480 + OFFSET_X, 70 + OFFSET_Y);
+		ctx.drawImage(flagImgs3[0], 480 + OFFSET_X, 110 + OFFSET_Y);
 		ctx.font = "20px Palatino Linotype";
 		ctx.fillStyle = "#fff";
-		ctx.fillText(castlesPlayer1, 530, 50);
-		ctx.fillText(castlesPlayer2, 530, 90);
-		ctx.fillText(castlesPlayer3, 530, 130);
+		ctx.fillText(castlesPlayer1, 530 + OFFSET_X, 50 + OFFSET_Y);
+		ctx.fillText(castlesPlayer2, 530 + OFFSET_X, 90 + OFFSET_Y);
+		ctx.fillText(castlesPlayer3, 530 + OFFSET_X, 130 + OFFSET_Y);
 
 		// show number of soldiers
-		ctx.drawImage(soldierFrontalImg1, 570, 30);
-		ctx.drawImage(soldierFrontalImg2, 570, 70);
-		ctx.drawImage(soldierFrontalImg3, 570, 110);
+		ctx.drawImage(soldierFrontalImg1, 570 + OFFSET_X, 30 + OFFSET_Y);
+		ctx.drawImage(soldierFrontalImg2, 570 + OFFSET_X, 70 + OFFSET_Y);
+		ctx.drawImage(soldierFrontalImg3, 570 + OFFSET_X, 110 + OFFSET_Y);
 		ctx.font = "20px Palatino Linotype";
 		ctx.fillStyle = "#fff";
-		ctx.fillText(soldiersPlayer1, 600, 50);
-		ctx.fillText(soldiersPlayer2, 600, 90);
-		ctx.fillText(soldiersPlayer3, 600, 130);
+		ctx.fillText(soldiersPlayer1, 600 + OFFSET_X, 50 + OFFSET_Y);
+		ctx.fillText(soldiersPlayer2, 600 + OFFSET_X, 90 + OFFSET_Y);
+		ctx.fillText(soldiersPlayer3, 600 + OFFSET_X, 130 + OFFSET_Y);
 
 		var winner = getWinner();
 
@@ -303,13 +303,13 @@ function fly() {
 			showLoseScreen();
 		}
 	} else if (shownScreen === SCREEN_HELP) {
-		ctx.drawImage(helpScreenImg, 0, 0);
+		ctx.drawImage(helpScreenImg, 0 + BACKGROUND_BIG_OFFSET_X, 0 + BACKGROUND_BIG_OFFSET_Y);
 	} else if (shownScreen === SCREEN_CREDITS) {
-		ctx.drawImage(creditsScreenImg, 0, 0);
+		ctx.drawImage(creditsScreenImg, 0 + BACKGROUND_BIG_OFFSET_X, 0 + BACKGROUND_BIG_OFFSET_Y);
 	} else if (shownScreen === SCREEN_WIN) {
-		ctx.drawImage(winScreenImg, 0, 0);
+		ctx.drawImage(winScreenImg, 0 + BACKGROUND_BIG_OFFSET_X, 0 + BACKGROUND_BIG_OFFSET_Y);
 	} else if (shownScreen === SCREEN_LOSE) {
-		ctx.drawImage(loseScreenImg, 0, 0);
+		ctx.drawImage(loseScreenImg, 0 + BACKGROUND_BIG_OFFSET_X, 0 + BACKGROUND_BIG_OFFSET_Y);
 	}
 
 	for (var buttonIndex = 0; buttonIndex < buttons.length; buttonIndex++) {
@@ -350,9 +350,12 @@ $(document).keyup(function(e) {
 });
 
 $('canvas').click(function(e) {
-	var x = e.pageX - this.offsetLeft;
-	var y = e.pageY - this.offsetTop;
-
+	var xScreen = e.pageX - this.offsetLeft;
+	var yScreen = e.pageY - this.offsetTop;
+	
+	var x = (xScreen / scaleRate - OFFSET_X);
+	var y = (yScreen / scaleRate - OFFSET_Y);
+	
 	if (shownScreen === SCREEN_HELP) {
 		handleBtnClick(x, y);
 		showStartScreen();

@@ -8,20 +8,22 @@ var castle = function() {
 	  dmg : 0,
 
 	  drawMe : function() {
+	  	var imageToDraw = null;
 		  switch (this.dmg) {
 		  case 0:
-			  ctx.drawImage(castleDmg0Img, this.posX - 20, this.posY - 30);
+		  	imageToDraw = castleDmg0Img;
 			  break;
 		  case 1:
-			  ctx.drawImage(castleDmg1Img, this.posX - 20, this.posY - 30);
+		  	imageToDraw = castleDmg1Img;
 			  break;
 		  case 2:
-			  ctx.drawImage(castleDmg2Img, this.posX - 20, this.posY - 30);
+		  	imageToDraw = castleDmg2Img;
 			  break;
 		  default:
-			  ctx.drawImage(castleDmg3Img, this.posX - 20, this.posY - 30);
+		  	imageToDraw = castleDmg3Img;
 			  break;
 		  }
+		  ctx.drawImage(imageToDraw, this.posX - 20 + OFFSET_X, this.posY - 30 + OFFSET_Y);
 	  },
 
 	  drawDirection : function() {
@@ -36,9 +38,9 @@ var castle = function() {
 		  for (var i = 0.25; i < 0.50; i += 0.05) {
 			  var distance = i;
 			  directionMarkerPosX = (1.0 - distance) * this.posX + (distance)
-			      * targetCastle.posX;
+			      * targetCastle.posX + OFFSET_X;
 			  directionMarkerPosY = (1.0 - distance) * this.posY + (distance)
-			      * targetCastle.posY;
+			      * targetCastle.posY + OFFSET_Y;
 			  ctx.arc(directionMarkerPosX, directionMarkerPosY, 5 - (10 * i), 0,
 			      Math.PI * 2, false);
 
@@ -54,15 +56,15 @@ var castle = function() {
 		  for (neighboursIndex in this.neighbours) {
 			  var curNeighbour = this.neighbours[neighboursIndex];
 			  if (curNeighbour.posY === this.posY && this.posX < curNeighbour.posX) {
-				  ctx.drawImage(way1Img, this.posX, this.posY - 5);
+				  ctx.drawImage(way1Img, this.posX + OFFSET_X, this.posY - 5 + OFFSET_Y);
 			  } else if (curNeighbour.posY > this.posY
 			      && this.posX < curNeighbour.posX) {
-				  ctx.drawImage(way2Img, this.posX - 5, this.posY);
+				  ctx.drawImage(way2Img, this.posX - 5 + OFFSET_X, this.posY + OFFSET_Y);
 			  } else if (curNeighbour.posY > this.posY
 			      && this.posX > curNeighbour.posX) {
 				  // flip context horizontally
 				  ctx.scale(-1, 1);
-				  ctx.drawImage(way2Img, -this.posX - 5, this.posY);
+				  ctx.drawImage(way2Img, -this.posX - 5 - OFFSET_X, this.posY + OFFSET_Y);
 				  ctx.scale(-1, 1);
 			  }
 		  }
@@ -82,7 +84,7 @@ var castle = function() {
 				  img = flagImgs3[animFlagFrameCtr];
 				  break;
 			  }
-			  ctx.drawImage(img, this.posX - 20, this.posY - 45);
+			  ctx.drawImage(img, this.posX - 20 + OFFSET_X, this.posY - 45 + OFFSET_Y);
 		  }
 	  },
 
