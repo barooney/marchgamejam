@@ -19,6 +19,7 @@ var PATH = 'dnc/';
 
 var OFFSET_X = 0;
 var OFFSET_Y = 0;
+var scaleRate = 1;
 var BACKGROUND_BIG_OFFSET_X = 0;
 var BACKGROUND_BIG_OFFSET_Y = 0;
 var initializeResolution = function() {
@@ -38,6 +39,7 @@ var initializeResolution = function() {
 	// ctx.webkitImageSmoothingEnabled = false;
 	// ctx.mozImageSmoothingEnabled = false;
 
+	
 	if (screenRatio > perfectRatio) {
 		// to bars at the sides
 		scaleRate = availHeight / PLAYGROUND_IMG_RESOLUTION_Y;
@@ -49,12 +51,16 @@ var initializeResolution = function() {
 		OFFSET_Y = ((availHeight - (PLAYGROUND_IMG_RESOLUTION_Y * scaleRate)) / 2)
 		    / scaleRate;
 	}
-	ctx.scale(scaleRate, scaleRate);
+	ctx.setTransform(scaleRate,0,0,scaleRate, 0, 0);
 
-	BACKGROUND_BIG_OFFSET_X = (640 - 800) / 2 + OFFSET_X;
-	BACKGROUND_BIG_OFFSET_Y = (480 - 800) / 2 + OFFSET_Y;
+	BACKGROUND_BIG_OFFSET_X = (640 - 1500) / 2 + OFFSET_X;
+	BACKGROUND_BIG_OFFSET_Y = (480 - 1500) / 2 + OFFSET_Y;
 }
 initializeResolution();
+
+$(window).resize(function() {
+	initializeResolution();
+});
 
 // global battlefield variables
 var mainBases;
