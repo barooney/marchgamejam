@@ -83,12 +83,11 @@ function getWinner() {
 }
 
 function toggleMusic() {
-	soundEngine.playMusic = !soundEngine.playMusic;
 	soundEngine.toggleMusic();
 }
 
 function toggleSound() {
-	soundEngine.playSounds = !(soundEngine.playSounds);
+	soundEngine.toggleSound();
 }
 
 function resetButtons() {
@@ -102,7 +101,7 @@ function resetButtons() {
 	toggleMusicBtn.title = "\u266B";
 	toggleMusicBtn.callback = toggleMusic;
 	toggleMusicBtn.isTurnedOff = function() {
-		return (!(soundEngine.playMusic));
+		return (!(soundEngine.isMusicPlaying()));
 	}
 
 	buttons.push(toggleMusicBtn);
@@ -115,7 +114,7 @@ function resetButtons() {
 	toggleSoundBtn.title = "\u266A";
 	toggleSoundBtn.callback = toggleSound;
 	toggleSoundBtn.isTurnedOff = function() {
-		return (!(soundEngine.playSounds));
+		return (!(soundEngine.isSoundPlaying()));
 	}
 	buttons.push(toggleSoundBtn);
 }

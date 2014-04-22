@@ -25,14 +25,22 @@ var soundEngine = {
 
 	  this.startMenuMusic();
   },
+  isMusicPlaying : function() {
+	  return this.playMusic;
+  },
+  isSoundPlaying : function() {
+	  return this.playSounds;
+  },
   stopMusic : function() {
 	  soundElementals.stopMusicLoop();
   },
   startMenuMusic : function() {
 	  soundElementals.playAsMusicLoop(this.MUSIC_MENU_FILE);
+	  soundElementals.activateMusic(this.playMusic);
   },
   startBattleMusic : function() {
 	  soundElementals.playAsMusicLoop(this.MUSIC_GAME_FILE);
+	  soundElementals.activateMusic(this.playMusic);
   },
   playFanfare : function() {
 	  this._playSoundFile(this.FANFARE_FILE);
@@ -43,7 +51,11 @@ var soundEngine = {
 	  this._playSoundFile(rndBladeFile);
   },
   toggleMusic : function() {
-	  soundElementals.toggleMusic();
+	  this.playMusic = !this.playMusic;
+	  soundElementals.activateMusic(this.playMusic);
+  },
+  toggleSound : function() {
+	  this.playSounds = !this.playSounds;
   },
   playCastleDirectionChange : function() {
 	  this._playSoundFile(this.INTERACT_FILE);
