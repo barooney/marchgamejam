@@ -1,4 +1,4 @@
-var DESIRED_FPS = 60;
+var DESIRED_FPS = 30;
 var MILLISECONDS_PER_FRAME = 1000.0 / DESIRED_FPS;
 var SCREEN_START = 'start';
 var SCREEN_BATTLE = 'battle';
@@ -10,9 +10,7 @@ var SCREEN_LOSE = 'lose';
 // global variables
 var shownScreen = SCREEN_START;
 var c = document.getElementById("myCanvas");
-c.width = window.screen.availWidth;
-c.height = window.screen.availHeight;
-var ctx = c.getContext("2d");
+var ctx;
 
 var buttons = [];
 var PATH = 'dnc/';
@@ -23,43 +21,45 @@ var scaleRate = 1;
 var BACKGROUND_BIG_OFFSET_X = 0;
 var BACKGROUND_BIG_OFFSET_Y = 0;
 var initializeResolution = function() {
-	// use body size for calculations
-	var $body = $(this.ie6 ? document.body : document); // using document in ie6
-	// causes a crash
-	var $window = $(window);
-	var availWidth = $window.width();
-	var availHeight = $window.height();
+    // use body size for calculations
+    var $body = $(this.ie6 ? document.body : document); // using document in ie6
+    // causes a crash
+    var $window = $(window);
+    var availWidth = $window.width();
+    var availHeight = $window.height();
 
-	var PLAYGROUND_IMG_RESOLUTION_X = 640;
-	var PLAYGROUND_IMG_RESOLUTION_Y = 480;
-	var perfectRatio = PLAYGROUND_IMG_RESOLUTION_X / PLAYGROUND_IMG_RESOLUTION_Y;
-	var screenRatio = availWidth / availHeight;
+    c.width = availWidth;
+    c.height = availHeight;
+    ctx = c.getContext("2d");
 
-	// ctx.imageSmoothingEnabled = false;
-	// ctx.webkitImageSmoothingEnabled = false;
-	// ctx.mozImageSmoothingEnabled = false;
+    var PLAYGROUND_IMG_RESOLUTION_X = 640;
+    var PLAYGROUND_IMG_RESOLUTION_Y = 480;
+    var perfectRatio = PLAYGROUND_IMG_RESOLUTION_X / PLAYGROUND_IMG_RESOLUTION_Y;
+    var screenRatio = availWidth / availHeight;
 
-	
-	if (screenRatio > perfectRatio) {
-		// to bars at the sides
-		scaleRate = availHeight / PLAYGROUND_IMG_RESOLUTION_Y;
-		OFFSET_X = ((availWidth - (PLAYGROUND_IMG_RESOLUTION_X * scaleRate)) / 2)
-		    / scaleRate;
-	} else {
-		// to bars at top and bottom
-		scaleRate = availWidth / PLAYGROUND_IMG_RESOLUTION_X;
-		OFFSET_Y = ((availHeight - (PLAYGROUND_IMG_RESOLUTION_Y * scaleRate)) / 2)
-		    / scaleRate;
-	}
-	ctx.setTransform(scaleRate,0,0,scaleRate, 0, 0);
+    ctx.imageSmoothingEnabled = false;
+    ctx.webkitImageSmoothingEnabled = false;
+    ctx.mozImageSmoothingEnabled = false;
 
-	BACKGROUND_BIG_OFFSET_X = (640 - 1500) / 2 + OFFSET_X;
-	BACKGROUND_BIG_OFFSET_Y = (480 - 1500) / 2 + OFFSET_Y;
-}
+
+    if (screenRatio > perfectRatio) {
+        // two bars at the sides
+        scaleRate = availHeight / PLAYGROUND_IMG_RESOLUTION_Y;
+        OFFSET_X = ((availWidth - (PLAYGROUND_IMG_RESOLUTION_X * scaleRate)) / 2) / scaleRate;
+    } else {
+        // two bars at top and bottom
+        scaleRate = availWidth / PLAYGROUND_IMG_RESOLUTION_X;
+        OFFSET_Y = ((availHeight - (PLAYGROUND_IMG_RESOLUTION_Y * scaleRate)) / 2) / scaleRate;
+    }
+    ctx.setTransform(scaleRate, 0, 0, scaleRate, 0, 0);
+
+    BACKGROUND_BIG_OFFSET_X = (640 - 1500) / 2 + OFFSET_X;
+    BACKGROUND_BIG_OFFSET_Y = (480 - 1500) / 2 + OFFSET_Y;
+};
 initializeResolution();
 
 $(window).resize(function() {
-	initializeResolution();
+    initializeResolution();
 });
 
 // global battlefield variables
@@ -108,10 +108,10 @@ way1Img.src = PATH + 'img/way_1.png';
 var way2Img = new Image();
 way2Img.src = PATH + 'img/way_2.png';
 var backgroundImg = new Image();
-backgroundImg.src = PATH + 'img/background_big2.jpg';
-var flagImgs1 = [ new Image(), new Image() ];
-var flagImgs2 = [ new Image(), new Image() ];
-var flagImgs3 = [ new Image(), new Image() ];
+backgroundImg.src = PATH + 'img/background_big3.jpg';
+var flagImgs1 = [new Image(), new Image()];
+var flagImgs2 = [new Image(), new Image()];
+var flagImgs3 = [new Image(), new Image()];
 flagImgs1[0].src = PATH + 'img/fahne_orange_1.png';
 flagImgs1[1].src = PATH + 'img/fahne_orange_2.png';
 flagImgs2[0].src = PATH + 'img/fahne_gruen_1.png';
@@ -124,9 +124,9 @@ var animFrameMax = 5;
 var animFlagFrame = 0;
 var animFlagFrameMax = 1;
 var animFlagFrameCtr = 0;
-var soldierImgs1 = [ new Image(), new Image(), new Image() ];
-var soldierImgs2 = [ new Image(), new Image(), new Image() ];
-var soldierImgs3 = [ new Image(), new Image(), new Image() ];
+var soldierImgs1 = [new Image(), new Image(), new Image()];
+var soldierImgs2 = [new Image(), new Image(), new Image()];
+var soldierImgs3 = [new Image(), new Image(), new Image()];
 soldierImgs1[0].src = PATH + 'img/knight_1orange.png';
 soldierImgs1[1].src = PATH + 'img/knight_2orange.png';
 soldierImgs1[2].src = PATH + 'img/knight_3orange.png';
@@ -144,39 +144,39 @@ soldierFrontalImg3 = new Image();
 soldierFrontalImg3.src = PATH + 'img/knight_violet_vorn_2.png';
 
 function init() {
-	var buttons;
+    var buttons;
 
-	framesToNextSpawn1 = 20;
-	framesToNextSpawn2 = 20;
-	framesToNextSpawn3 = 20;
+    framesToNextSpawn1 = 20;
+    framesToNextSpawn2 = 20;
+    framesToNextSpawn3 = 20;
 
-	mainBases = [ null, null, null ];
+    mainBases = [null, null, null];
 
-	castles = [];
-	for ( var castlePosIndex in castlePosArray) {
-		var curPosObj = castlePosArray[castlePosIndex];
-		var curCastle = new castle();
-		curCastle.posX = curPosObj.x;
-		curCastle.posY = curPosObj.y;
-		curCastle.owner = curPosObj.owner;
-		castles.push(curCastle);
+    castles = [];
+    for (var castlePosIndex in castlePosArray) {
+        var curPosObj = castlePosArray[castlePosIndex];
+        var curCastle = new castle();
+        curCastle.posX = curPosObj.x;
+        curCastle.posY = curPosObj.y;
+        curCastle.owner = curPosObj.owner;
+        castles.push(curCastle);
 
-		if (curCastle.owner !== 0) {
-			mainBases[curCastle.owner - 1] = curCastle;
-		}
-	}
+        if (curCastle.owner !== 0) {
+            mainBases[curCastle.owner - 1] = curCastle;
+        }
+    }
 
-	// connect to neighbours
-	for ( var castleIndex in castles) {
-		var curCastleNeighbourIndizes = castlePosArray[castleIndex].neighbours;
-		var curCastle = castles[castleIndex];
+    // connect to neighbours
+    for (var castleIndex in castles) {
+        var curCastleNeighbourIndizes = castlePosArray[castleIndex].neighbours;
+        var curCastle = castles[castleIndex];
 
-		for ( var curCastleNeighbourIndizesIndex in curCastleNeighbourIndizes) {
-			var curNeighbourIndex = curCastleNeighbourIndizes[curCastleNeighbourIndizesIndex];
-			curCastle.neighbours.push(castles[curNeighbourIndex]);
-		}
-	}
+        for (var curCastleNeighbourIndizesIndex in curCastleNeighbourIndizes) {
+            var curNeighbourIndex = curCastleNeighbourIndizes[curCastleNeighbourIndizesIndex];
+            curCastle.neighbours.push(castles[curNeighbourIndex]);
+        }
+    }
 
-	soldiers = [];
-	animations = [];
+    soldiers = [];
+    animations = [];
 }
