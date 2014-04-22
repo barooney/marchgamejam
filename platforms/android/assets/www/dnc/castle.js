@@ -94,6 +94,7 @@ var castle = function() {
 	  nextTarget : function() {
 		  this.selectedDirection++;
 		  this.selectedDirection = this.selectedDirection % this.neighbours.length;
+		  soundEngine.playCastleDirectionChange();
 	  }
 	};
 	return aCastle;
